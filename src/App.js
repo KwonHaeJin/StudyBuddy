@@ -16,12 +16,12 @@ const Home = () => {
   });
   return (
     <div className="App">
-      <header className="App-header">
+      
         <button onClick={() => navigate("/studyroom")}>
           스터디룸으로
         </button>
        
-      </header>
+      
     </div>
   );
 }
