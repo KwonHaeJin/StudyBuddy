@@ -6,7 +6,7 @@ import pictureProfile2 from './images/profile2.jpg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function studyroom() {
+function camera() {
     const today = new Date();
     const day = today.getDate();
     const month = today.toLocaleString('en-US', { month: 'long' });
@@ -161,4 +161,4 @@ function studyroom() {
     );
 }
 
-export default studyroom;
+export default camera;
