@@ -48,12 +48,12 @@ const ProfileScreen = () => {
         </div>
       </div>
 
-      {/* Gallery Section */}
+      {/* 여기는 피드 갤러리 */}
       <div className="galleryContainer">
         {[...Array(9)].map((_, index) => (
           <img 
             key={index}
-            src={feedImg} // feedImg를 사용하여 갤러리 이미지를 로드
+            src={feedImg}
             alt="Gallery Item"
             className="galleryImage"
           />
@@ -63,5 +63,4 @@ const ProfileScreen = () => {
   );
 };
 
-// ProfileScreen 컴포넌트를 다른 파일에서 사용할 수 있도록 내보내기
 export default ProfileScreen;
