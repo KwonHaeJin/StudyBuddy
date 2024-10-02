@@ -2,6 +2,7 @@
 import './App.css';
 import Studyroom from './studyroom';
 import Camera from './camera';
+import Feed from './feedPage/feedPage';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom';
 
@@ -24,7 +25,9 @@ const Home = () => {
         <button onClick={() => navigate("/camera")}>
           카메라로
         </button>
-       
+        <button onClick={() => navigate("/feed")}>
+          피드로
+        </button>
       
     </div>
   );
@@ -38,6 +41,7 @@ const App= () => {
           <Route path="/" element={<Home />} />
           <Route path="/studyroom" element={<Studyroom />} /> 
           <Route path="/camera" element={<Camera />} />
+          <Route path="/feed" element={<Feed />} />
         </Routes>
       </BrowserRouter>
     </div>
