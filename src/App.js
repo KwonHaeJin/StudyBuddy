@@ -21,7 +21,7 @@ const Home = () => {
         <button onClick={() => navigate("/studyroom")}>
           스터디룸으로
         </button>
-        <button onClick={() => navigate("/studyroom")}>
+        <button onClick={() => navigate("/camera")}>
           카메라로
         </button>
        
