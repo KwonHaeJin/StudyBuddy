@@ -3,8 +3,18 @@ import './feedPage.css';
 import React from 'react';
 import profImg from '../images/profile.png';
 import feedImg from '../images/feedEx.jpeg';
+import searchIcon from '../images/search.png';
+import alarm from '../images/bell3.png';
+import { useNavigate } from 'react-router-dom';
+
 
 const ProfileScreen = () => {
+  const navigate = useNavigate();
+
+  const handleEditProfile = () => {
+    navigate('/profile');
+  };
+
   const today = new Date();
   const day = today.getDate();
   const month = today.toLocaleString('en-US', { month: 'long' });
@@ -13,14 +23,11 @@ const ProfileScreen = () => {
     <div className="container">
       {/* 헤더 부분 */}
       <div className="header">
-        <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-          <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '14px' }}>{month},</p>
-          <div style={{ width: "2vw" }}></div>
-          <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '14px' }}>{day}</p>
+        <div className="date-box">
+          <p className="month">{month},</p>
+          <p className="day">{day}</p>
         </div>
-        <button className="notificationIcon">
-          {/* 알림 아이콘 정의하기! */}
-        </button>
+        <img src={alarm} alt="Alarm Icon" className="alarmIcon" />
       </div>
 
       {/* 검색바 */}
@@ -29,6 +36,11 @@ const ProfileScreen = () => {
           type="text" 
           className="searchInput" 
           placeholder="search"
+        />
+        <img 
+          src={searchIcon} 
+          alt="Search Icon" 
+          className="searchIcon"
         />
       </div>
 
@@ -42,7 +54,7 @@ const ProfileScreen = () => {
         <div className="profileTextContainer">
           <h3 className="profileName">이우림</h3>
           <p className="profileUsername">dldmfla_</p>
-          <button className="editProfileButton">
+          <button className="editProfileButton" onClick={handleEditProfile}>
             edit profile
           </button>
         </div>

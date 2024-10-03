@@ -3,6 +3,7 @@ import './App.css';
 import Studyroom from './studyroom';
 import Camera from './camera';
 import Feed from './feedPage/feedPage';
+import Profile from './feedPage/editProfile';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom';
 
@@ -42,6 +43,7 @@ const App= () => {
           <Route path="/studyroom" element={<Studyroom />} /> 
           <Route path="/camera" element={<Camera />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </div>
