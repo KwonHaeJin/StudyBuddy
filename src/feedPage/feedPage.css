@@ -41,12 +41,12 @@
 
 .alarmIcon {
   margin-left: auto;
+  margin-right: -2vw; /* 검색바와 더 큰 간격 설정 */
   width: 4vw;
   height: 4vw;
   max-width: 25px;
   max-height: 25px;
   object-fit: contain;
-  margin-right: 0.5vw;
 }
 
 
