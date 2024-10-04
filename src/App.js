@@ -4,6 +4,8 @@ import Studyroom from './studyroom';
 import Camera from './camera';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
+import Feed from './feedPage/feedPage';
+import Profile from './feedPage/editProfile';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
@@ -32,14 +34,17 @@ const Home = () => {
         <button onClick={() => navigate("/camera")}>
           카메라로
         </button>
-        <button onClick={() => navigate("/Login")}>
-          로그인 페이지로
+        <button onClick={() => navigate("/feed")}>
+          피드로
         </button>
-        <button onClick={() => navigate("/Signup")}>
-          회원가입 페이지로
+        <button onClick={() => navigate("/login")}>
+          로그인으로
         </button>
-
-
+        <button onClick={() => navigate("/signup")}>
+          회원가입으로
+        </button>
+       
+      
     </div>
   );
 }
@@ -52,8 +57,10 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/studyroom" element={<Studyroom />} />
           <Route path="/camera" element={<Camera />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Signup" element={<Signup/>} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </div>

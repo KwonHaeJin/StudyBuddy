@@ -1,0 +1,125 @@
+.container {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: #F2F2F2;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  box-sizing: border-box;
+}
+
+.date-box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 70%;
+}
+
+.month, .day {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.day {
+  color: #FF7A00;
+  margin-left: 5px;
+}
+
+.alarmIcon {
+  margin-left: auto;
+  margin-right: -2vw; /* 검색바와 더 큰 간격 설정 */
+  width: 4vw;
+  height: 4vw;
+  max-width: 25px;
+  max-height: 25px;
+  object-fit: contain;
+}
+
+.edit-profile-container {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.edit-profile-image {
+  width: 12vw;
+  height: 12vw;
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #CACACA;
+  margin-right: 20px;
+}
+
+.change-profile-image-button {
+  padding: 10px 20px;
+  background-color: #F0F0F0;
+  border: none;
+  border-radius: 15px;
+  font-size: 1rem;
+  color: #606060;
+  cursor: pointer;
+}
+
+.edit-field {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: 10px;
+  width: 20%;
+}
+
+.edit-input {
+  width: 75%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #E0E0E0;
+  font-size: 1rem;
+}
+
+.save-button {
+  padding: 10px 40px;
+  background-color: #FF7A00;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  color: #FFFFFF;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}
