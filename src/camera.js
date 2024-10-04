@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useRef, useState } from "react";
 
 function VideoChat() {
@@ -141,11 +142,51 @@ function VideoChat() {
   }
 
   return (
-    <div>
-      <h1>WebRTC Video Chat</h1>
-      <video ref={localVideoRef} autoPlay playsInline style={{ width: "300px", margin: "10px" }}></video>
-      <video ref={remoteVideoRef} autoPlay playsInline style={{ width: "300px", margin: "10px" }}></video>
+    <div className="main" style={{backgroundColor:"#F2F2F2"}} >
+      <div style={{ height: "10vh" }}></div>
+      <div style={{ position: "relative", width: "100%", height: "28vh", marginBottom: "2.5vh" }}>
+        <video
+          ref={localVideoRef}
+          autoPlay
+          playsInline
+          style={{ width: "100%", height: "100%", borderRadius: "15px", backgroundColor: "rgba(0, 0, 0, 0.29)", }}
+        ></video>
+        <div style={{
+          position: "absolute",
+          transform: "translate(20%, -150%)",
+          color: "white",
+          fontSize: "17px",
+          fontWeight: "bold",
+          fontFamily: "Basic"
+        }}>
+          남의 화면
+        </div>
+      </div>
+
+      <div style={{ position: "relative", width: "100%", height: "28vh" }}>
+        <video
+          ref={remoteVideoRef}
+          autoPlay
+          playsInline
+          style={{ width: "100%", height: "100%", borderRadius: "15px", backgroundColor: "white", }}
+        ></video>
+        <div style={{
+          position: "absolute",
+          transform: "translate(23%, -150%)",
+          color: "black",
+          fontSize: "17px",
+          fontWeight: "bold",
+          fontFamily: "Basic"
+        }}>
+          내 화면
+        </div>
+      </div>
+      <div style={{height:"6vh"}}></div>
+      <div style={{backgroundColor:"#8E8E8E", width:"9vh", height:"9vh", borderRadius:"50%", display:"flex", justifyContent:"center", alignItems:"center"}}>
+        <button style={{backgroundColor:"#707070", width:"6.8vh", height:"6.8vh", borderRadius:"50%", border:"none"}}></button>
+      </div>
     </div>
+
   );
 }
 
