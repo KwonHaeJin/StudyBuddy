@@ -34,6 +34,15 @@ const Home = () => {
         <button onClick={() => navigate("/camera")}>
           카메라로
         </button>
+        <button onClick={() => navigate("/feed")}>
+          피드로
+        </button>
+        <button onClick={() => navigate("/login")}>
+          로그인으로
+        </button>
+        <button onClick={() => navigate("/signup")}>
+          회원가입으로
+        </button>
        
       
     </div>
@@ -48,6 +57,10 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/studyroom" element={<Studyroom />} />
           <Route path="/camera" element={<Camera />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </div>
