@@ -20,6 +20,7 @@
   padding-left: 3vh;
   padding-right: 3vh;
   min-height: calc(var(--vh, 1vh) * 100);
+  box-sizing: border-box;
 }
 
 .date-box {

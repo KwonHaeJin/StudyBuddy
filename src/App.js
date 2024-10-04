@@ -5,18 +5,24 @@ import Camera from './camera';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
 
-  function setScreenSize() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }
+  // 뷰포트 높이를 계산하여 --vh 변수 설정
   useEffect(() => {
-    setScreenSize();
-  });
+    const setVhVariable = () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    setVhVariable();
+
+    window.addEventListener("resize", setVhVariable);
+    return () => window.removeEventListener("resize", setVhVariable);
+  }, []);
+
   return (
     <div className="App">
       
@@ -33,17 +39,18 @@ const Home = () => {
           회원가입 페이지로
         </button>
 
+
     </div>
   );
 }
 
-const App= () => {
+const App = () => {
   return (
     <div className='backg'>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/studyroom" element={<Studyroom />} /> 
+          <Route path="/studyroom" element={<Studyroom />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup/>} />
