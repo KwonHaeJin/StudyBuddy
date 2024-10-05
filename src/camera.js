@@ -144,7 +144,7 @@ function VideoChat() {
   return (
     <div className="main" style={{backgroundColor:"#F2F2F2"}} >
       <div style={{ height: "10vh" }}></div>
-      <div style={{ position: "relative", width: "100%", height: "28vh", marginBottom: "2.5vh" }}>
+      <div style={{ position: "relative", width: "100%", height: "30vh", marginBottom: "2.5vh" }}>
         <video
           ref={localVideoRef}
           autoPlay
@@ -163,7 +163,7 @@ function VideoChat() {
         </div>
       </div>
 
-      <div style={{ position: "relative", width: "100%", height: "28vh" }}>
+      <div style={{ position: "relative", width: "100%", height: "30vh" }}>
         <video
           ref={remoteVideoRef}
           autoPlay
@@ -181,7 +181,7 @@ function VideoChat() {
           내 화면
         </div>
       </div>
-      <div style={{height:"6vh"}}></div>
+      <div style={{height:"9vh"}}></div>
       <div style={{backgroundColor:"#8E8E8E", width:"9vh", height:"9vh", borderRadius:"50%", display:"flex", justifyContent:"center", alignItems:"center"}}>
         <button style={{backgroundColor:"#707070", width:"6.8vh", height:"6.8vh", borderRadius:"50%", border:"none"}}></button>
       </div>
