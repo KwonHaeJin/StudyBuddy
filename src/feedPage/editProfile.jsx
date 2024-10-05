@@ -17,13 +17,24 @@ const EditProfileScreen = () => {
   const month = today.toLocaleString('en-US', { month: 'long' });
 
   return (
-    <div className="container">
-      <div className="header">
-        <div className="date-box">
-          <p className="month">{month},</p>
-          <p className="day">{day}</p>
+    <div className="main">
+      <div style={{ height: "7vh" }}></div>
+      <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
+        <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
+          <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '14px' }}>{month},</p>
+          <div style={{ width: "2vw" }}></div>
+          <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '14px' }}>{day}</p>
         </div>
-        <img src={alarm} alt="Alarm Icon" className="alarmIcon" />
+        <button style={{ position: "absolute", right: "1px", border: "none", backgroundColor: "transparent", transition: "transform 0.2s ease-in-out", }}
+          onClick={(e) => {
+            e.target.style.transform = "scale(0.9)";  // 버튼 클릭 시 확대 효과
+            setTimeout(() => {
+              e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
+            }, 200);
+          }}>
+          <img src={alarm} width='20vw' height='20vh'>
+          </img>
+        </button>
       </div>
 
       <div className="edit-profile-container">
@@ -33,13 +44,13 @@ const EditProfileScreen = () => {
         </div>
         
         <div className="edit-field">
-          <label className="edit-label">이름</label>
-          <input type="text" placeholder="dldmfla_" className="edit-input" />
+          <label className="edit-label" >이름</label>
+          <input type="text" value="dldmfla_" style={{ textAlign:"center" }} className="edit-input" disabled />
         </div>
         
         <div className="edit-field">
           <label className="edit-label">새 이름</label>
-          <input type="text" placeholder="입력하세요." className="edit-input" />
+          <input type="text" placeholder="입력하세요." className="edit-input" style={{ textAlign:"center" }} />
         </div>
         
         <button className="save-button" onClick={handleSaveChanges}>변경 완료</button>
