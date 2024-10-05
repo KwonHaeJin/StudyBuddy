@@ -2,6 +2,7 @@
 import './App.css';
 import Studyroom from './studyroom';
 import Camera from './camera';
+import Notification from './notification';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import Feed from './feedPage/feedPage';
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/studyroom" element={<Studyroom />} />
           <Route path="/camera" element={<Camera />} />
+          <Route path="/notification" element={<Notification />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />

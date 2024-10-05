@@ -153,13 +153,13 @@ function VideoChat() {
         ></video>
         <div style={{
           position: "absolute",
-          transform: "translate(20%, -150%)",
-          color: "white",
+          transform: "translate(23%, -150%)",
+          color: "black",
           fontSize: "17px",
           fontWeight: "bold",
           fontFamily: "Basic"
         }}>
-          남의 화면
+          내 화면
         </div>
       </div>
 
@@ -172,13 +172,13 @@ function VideoChat() {
         ></video>
         <div style={{
           position: "absolute",
-          transform: "translate(23%, -150%)",
-          color: "black",
+          transform: "translate(20%, -150%)",
+          color: "white",
           fontSize: "17px",
           fontWeight: "bold",
           fontFamily: "Basic"
         }}>
-          내 화면
+          남의 화면
         </div>
       </div>
       <div style={{height:"9vh"}}></div>
