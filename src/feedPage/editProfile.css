@@ -12,19 +12,6 @@
   align-items: center;
 }
 
-/*
-width: 95%;
-  height: 20vh;
-  margin-top: 1vh;
-  margin-bottom: 2vh;
-  padding-left: 3vh;
-  display: flex;
-  align-items: center;
-  background-color: #FFFFFF;
-  border-radius: 15px;
-  flex-direction: row;
-  */
-
 .profile-image-section {
   display: flex;
   align-items: center;
