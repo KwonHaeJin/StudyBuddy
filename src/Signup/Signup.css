@@ -25,6 +25,7 @@
     color: #FF7A00;
     margin-right: 18vw;
     margin-bottom: -8vh;
+    margin-top: 0vh;
 }
 .p2 {
     width: 199px;
@@ -83,6 +84,7 @@ button {
    border: 1px solid #E6E6E6;
    border-radius: 1000px;
    font-size: 14px;
+   margin-right: 3vW;
 }
 
 .submit {
@@ -92,6 +94,7 @@ button {
     color: white;
     border-radius: 1000px;
     font-size: 14px;
+    margin-right: 3vw;
 }
 .signup-container img{
     width: 100px;
@@ -103,4 +106,7 @@ button {
     border: 1.5px 0px 0px 0px;
     opacity: 0px;
     margin-bottom: 3vh;
+}
+.input-form{
+
 }
