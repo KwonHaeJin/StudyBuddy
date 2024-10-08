@@ -1,19 +1,15 @@
-/* eslint-disable */
-import '../App.css';
-import './feedPage.css';
 import React from 'react';
-import profImg from '../images/profile2.jpg';
-import feedImg from '../images/feedEx.jpeg';
-import searchIcon from '../images/search.png';
+import '../App.css';
+import './editProfile.css';
+import profImg from '../images/profile.png';
 import alarm from '../images/bell3.png';
 import { useNavigate } from 'react-router-dom';
 
-
-const ProfileScreen = () => {
+const EditProfileScreen = () => {
   const navigate = useNavigate();
 
-  const handleEditProfile = () => {
-    navigate('/profile');
+  const handleSaveChanges = () => {
+    navigate('/feed');
   };
 
   const today = new Date();
@@ -36,47 +32,30 @@ const ProfileScreen = () => {
               e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
             }, 200);
           }}>
-          <img src={alarm} width='20vw' height='20vh'>
+          <img src={alarm} alt="" width='20vw' height='20vh'>
           </img>
         </button>
       </div>
-      <input
-        type="text"
-        className="searchInput"
-        placeholder="search"
-        style={{
-          backgroundImage: `url(${searchIcon})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'right 2.5vh center',
-        }}
-      ></input>
-      <div className="profileContainer">
-        <img
-          src={profImg}
-          alt="Profile"
-          className="profileImage"
-        />
-        <div style={{width:"5vw"}}></div>
-        <div className="profileTextContainer">
-          <p className="profileName">이우림</p>
-          <p className="profileUsername">dldmfla_</p>
-          <button className="editProfileButton" onClick={handleEditProfile}>
-            edit profile
-          </button>
+
+      <div className="edit-profile-container">
+        <div className="profile-image-section">
+          <img src={profImg} alt="Profile" className="edit-profile-image" />
+          <button className="change-profile-image-button">change profile image</button>
         </div>
-      </div>
-      <div className="galleryContainer">
-        {[...Array(14)].map((_, index) => (
-          <img
-            key={index}
-            src={feedImg}
-            alt="Gallery Item"
-            className="galleryImage"
-          />
-        ))}
+
+        <div className="edit-field">
+          <label className="edit-label" >이름</label>
+          <input type="text" value="이우림" style={{ textAlign: "center", height: '2vh'}} className="edit-input" disabled/>
+        </div>
+
+        <div className="edit-field">
+          <label className="edit-label">새 이름</label>
+          <input type="text" placeholder="입력하세요." className="edit-input" style={{ textAlign: "center", height: '2vh' }} />
+        </div>
+        <button className="save-button" onClick={handleSaveChanges}>변경 완료</button>
       </div>
     </div>
   );
 };
 
-export default ProfileScreen;
+export default EditProfileScreen;
