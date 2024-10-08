@@ -1,92 +1,84 @@
 .edit-profile-container {
   width: 100%;
-  max-width: 600px;
-  height: 165vw;
-  margin: 40px auto;
-  background-color: #FFFFFF;
-  border-radius: 15px;
-  padding: 30px;
-  box-sizing: border-box;
+  height: 75vh;
+  margin-top: 5vh;
   display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
   flex-direction: column;
-  align-items: center;
-}
-
-/*
-width: 95%;
-  height: 20vh;
-  margin-top: 1vh;
-  margin-bottom: 2vh;
-  padding-left: 3vh;
-  display: flex;
-  align-items: center;
-  background-color: #FFFFFF;
   border-radius: 15px;
-  flex-direction: row;
-  */
+}
 
 .profile-image-section {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 3vh;
 }
 
 .edit-profile-image {
   width: 20vw;
   height: 20vw;
-  max-width: 100px;
-  max-height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid #CACACA;
-  margin-right: 20px;
+  border: 0px solid #CACACA;
+  margin-right: 5vw;
+  margin-top: 3vh;
 }
 
 .change-profile-image-button {
-  margin: 0 5vw 0 0;
-  padding: 1vw 6vw;
-  background-color: #F0F0F0;
+  margin-top: 3vh;
+  width: 47vw;
+  height: 3.2vh;
+  background-color: #F1F1F1;
   border: none;
   border-radius: 15px;
-  font-size: 0.8rem;
-  color: #606060;
+  font-size: 13px;
+  color: #8F8F8F;
   cursor: pointer;
 }
 
 .edit-field {
-  width: 100%;
-  margin-bottom: 20px;
+  width: 95%;
+  height: 6vh;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-direction: row;
+  margin-left: 11vw;
 }
 
 .edit-label {
-  font-size: 1rem;
+  font-size: 15px;
   margin-right: 4vw;
   margin-bottom: 6vw;
   width: 20%;
+  font-family: "Basic";
+  font-weight: bold;
 }
 
 .edit-input {
-  width: 75%;
-  padding: 10px;
-  border-radius: 30px;
-  border: 1px solid #E0E0E0;
-  font-size: 1rem;
+  width: 65%;
+  margin-right: 10vw;
+  border-radius: 17px;
+  font-size: 15px;
+  text-align: center;
+  color: #8F8F8F;
+  font-family: "Basic";
+  font-weight: bold;
+  background-color: #FFFFFF;
+  border: 1px solid #E6E6E6;
 }
 
 .save-button {
-  padding: 10px 40px;
   background-color: #FF7A00;
   border: none;
   border-radius: 20px;
-  font-size: 1rem;
+  font-size: 14px;
   color: #FFFFFF;
   cursor: pointer;
-  margin-top: 85vw;
-  margin-bottom: 10vw;
-  width: 100%;
-  max-width: 300px;
+  width: 71vw;
+  height: 3vh;
   text-align: center;
+  position: fixed;
+  bottom: 15vh;
 }

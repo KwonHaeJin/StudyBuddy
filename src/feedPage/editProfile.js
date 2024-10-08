@@ -32,7 +32,7 @@ const EditProfileScreen = () => {
               e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
             }, 200);
           }}>
-          <img src={alarm} alt ="" width='20vw' height='20vh'>
+          <img src={alarm} alt="" width='20vw' height='20vh'>
           </img>
         </button>
       </div>
@@ -42,17 +42,16 @@ const EditProfileScreen = () => {
           <img src={profImg} alt="Profile" className="edit-profile-image" />
           <button className="change-profile-image-button">change profile image</button>
         </div>
-        
+
         <div className="edit-field">
-          <label className="edit-label" >이름</label>
-          <input type="text" value="dldmfla_" style={{ textAlign:"center" }} className="edit-input" disabled />
+          <p className="edit-label" >이름</p>
+          <input type="text" value="이우림" style={{ textAlign: "center", height: '2vh'}} className="edit-input" disabled/>
         </div>
-        
+
         <div className="edit-field">
-          <label className="edit-label">새 이름</label>
-          <input type="text" placeholder="입력하세요." className="edit-input" style={{ textAlign:"center" }} />
+          <p className="edit-label" >새 이름</p>
+          <input type="text" placeholder="입력하세요." className="edit-input" style={{ textAlign: "center", height: '2vh'}} />
         </div>
-        
         <button className="save-button" onClick={handleSaveChanges}>변경 완료</button>
       </div>
     </div>

@@ -36,7 +36,7 @@ const ProfileScreen = () => {
               e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
             }, 200);
           }}>
-          <img src={alarm} width='20vw' height='20vh'>
+          <img src={alarm} alt ="" width='20vw' height='20vh'>
           </img>
         </button>
       </div>
