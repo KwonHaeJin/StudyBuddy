@@ -44,13 +44,13 @@ const EditProfileScreen = () => {
         </div>
 
         <div className="edit-field">
-          <label className="edit-label" >이름</label>
+          <p className="edit-label" >이름</p>
           <input type="text" value="이우림" style={{ textAlign: "center", height: '2vh'}} className="edit-input" disabled/>
         </div>
 
         <div className="edit-field">
-          <label className="edit-label">새 이름</label>
-          <input type="text" placeholder="입력하세요." className="edit-input" style={{ textAlign: "center", height: '2vh' }} />
+          <p className="edit-label" >새 이름</p>
+          <input type="text" placeholder="입력하세요." className="edit-input" style={{ textAlign: "center", height: '2vh'}} />
         </div>
         <button className="save-button" onClick={handleSaveChanges}>변경 완료</button>
       </div>
