@@ -68,6 +68,7 @@ function studyroom() {
                     setTimeout(() => {
                         e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
                     }, 200);
+                    navigate('/notification');
                 }}>
                     <img src={pictureAlram} width='20vw' height='20vh'>
                     </img>

@@ -68,13 +68,7 @@ input {
     margin-top: 5vh;
 }
 
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
+
 
 .cancel {
    width: 150px;
