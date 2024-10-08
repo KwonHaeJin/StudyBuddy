@@ -1,9 +1,44 @@
-.input-a {
-  flex: 1;
-  /* 입력창이 가능한 공간을 모두 차지하게 함 */
+.form {
+  margin-top: 20px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center; /* 레이블과 입력창을 수직 정렬 */
+  margin-bottom: 15px; /* 입력 그룹 사이의 간격 */
+}
+
+label {
+  margin-right: 10px; /* 레이블과 입력창 사이의 간격 */
+  font-size: 14px;
+}
+
+input {
+  flex: 1; /* 입력창이 가능한 공간을 모두 차지하게 함 */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7f7; /* 배경색 */
+}
+
+.container {
+  text-align: center;
+}
+
+.title {
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+  color: #999; /* 기본 색상 회색 */
+  position: relative;
+  text-align: center;
 }
 
 .study {
