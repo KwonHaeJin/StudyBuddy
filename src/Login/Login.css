@@ -1,13 +1,8 @@
-.form {
-  margin-top: 20px;
-}
-
 .input-group {
   display: flex;
   align-items: center; /* 레이블과 입력창을 수직 정렬 */
   margin-bottom: 15px; /* 입력 그룹 사이의 간격 */
 }
-
 
 .container {
   text-align: center;
