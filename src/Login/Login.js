@@ -2,8 +2,11 @@
 import React from 'react';
 import '../App.css';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="main" style={{ display: "flex", justifyContent: "center" }}>
       <div className="study" style={{ marginRight: "30vw", marginBottom: "-6vh" }}>study</div>
@@ -30,7 +33,7 @@ const App = () => {
         </div>
         <div style={{height:"5vh"}}></div>
         <button className="login-button" style={{ color: 'black', display:"flex", justifyContent:"center", alignItems:"center" }}>login</button>
-      <button className="signup-button">sign up</button>
+      <button className="signup-button" onClick={()=> {navigate('/signup')}}>sign up</button>
     </div>
   );
 };

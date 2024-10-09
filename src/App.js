@@ -41,11 +41,6 @@ const Home = () => {
         <button onClick={() => navigate("/login")}>
           로그인으로
         </button>
-        <button onClick={() => navigate("/signup")}>
-          회원가입으로
-        </button>
-       
-      
     </div>
   );
 }

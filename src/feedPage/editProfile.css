@@ -82,3 +82,13 @@
   position: fixed;
   bottom: 15vh;
 }
+
+.text-all {
+  width: 20vw;
+  font-family: "Basic";
+  font-size: 17px;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 4vw;
+}
