@@ -1,106 +1,49 @@
-.signup-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f7f7f7;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
 .p1 {
-    width: 199px;
-    height: 70px;
-    top: 122px;
-    left: 26px;
-    gap: 0px;
-    opacity: 0px;
     font-family: "basic";
     font-size: 28px;
-    font-weight: 700;
-    line-height: 41px;
-    text-align: left;
+    font-weight: bold;
     color: #FF7A00;
-    margin-right: 18vw;
-    margin-bottom: -8vh;
-}
-.p2 {
-    width: 199px;
-    height: 70px;
-    top: 122px;
-    left: 26px;
-    gap: 0px;
-    opacity: 0px;
-    font-family: "basic";
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 41px;
-    text-align: left;
-    color: #FF7A00;
-    margin-right: 18vw;
-}
-
-.signup-form {
-    display: flex;
-    flex-direction: column;
     width: 100%;
-}
-
-label {
-    margin: 10px 0 5px;
-    font-size: 14px;
-}
-
-input {
-        flex: 1; /* 입력창이 가능한 공간을 모두 차지하게 함 */
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      
+    display: flex;
+    justify-content: flex-start;
 }
 
 .button-group {
-    justify-content: space-between;
+    justify-content: center;
+    display: flex;
     position: fixed;
-    margin-top: 5vh;
-}
-
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+    bottom: 5vh;
 }
 
 .cancel {
-   width: 150px;
-   height: 34px;
-   background-color:#FFFFFF;
-   color: #000000;
-   border: 1px solid #E6E6E6;
-   border-radius: 1000px;
-   font-size: 14px;
+    width: 40vw;
+    height: 3.8vh;
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #E6E6E6;
+    border-radius: 30px;
+    font-size: 14px;
 }
 
 .submit {
-    width: 150px;
-    height: 34px;
+    width: 40vw;
+    height: 3.8vh;
     background-color: #ff6600;
+    border: none;
     color: white;
-    border-radius: 1000px;
+    border-radius: 30px;
     font-size: 14px;
 }
-.signup-container img{
-    width: 100px;
-    height: 100px;
-    margin-top: -1vh;
-    top: -1066px;
-    left: -924px;
-    gap: 0px;
-    border: 1.5px 0px 0px 0px;
-    opacity: 0px;
-    margin-bottom: 3vh;
+
+.edit-input2 {
+    width: 55vw;
+    height: 3.7vh;
+    border-radius: 20px;
+    font-size: 15px;
+    text-align: center;
+    color: #8F8F8F;
+    font-family: "Basic";
+    font-weight: bold;
+    background-color: #FFFFFF;
+    border: 1px solid #E6E6E6;
 }
