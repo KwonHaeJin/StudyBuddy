@@ -1,0 +1,25 @@
+.Top-box {
+    width: 55vw;
+    height: 3.7vh;
+    border-radius: 20px;
+    font-size: 15px;
+    text-align: center;
+    color: #8F8F8F;
+    font-family: "Basic";
+    font-weight: bold;
+    background-color: #FFFFFF;
+    border: 1px solid #E6E6E6;
+}
+.Weekely {
+    width: 229px;
+    height: 26px;
+    top: 106px;
+    left: 16px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: "basic";
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36.46px;
+    background: #FF7A00;
+}

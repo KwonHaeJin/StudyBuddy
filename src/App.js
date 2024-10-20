@@ -7,6 +7,7 @@ import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import Feed from './feedPage/feedPage';
 import Profile from './feedPage/editProfile';
+import Todolist from './Todolist/Todolist';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
@@ -41,6 +42,9 @@ const Home = () => {
         <button onClick={() => navigate("/login")}>
           로그인으로
         </button>
+        <button onClick={() => navigate("/todolist")}>
+          투두리스트로
+        </button>
     </div>
   );
 }
@@ -58,6 +62,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/todolist" element={<Todolist />} />
         </Routes>
       </BrowserRouter>
     </div>
