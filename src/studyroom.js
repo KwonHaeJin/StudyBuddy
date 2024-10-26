@@ -54,7 +54,7 @@ function studyroom() {
     };
 
     return (
-        <div className="main">
+        <div className="main" style={{marginBottom:"2vh"}}>
             <div style={{ height: "7vh" }}></div>
             <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
                 <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>

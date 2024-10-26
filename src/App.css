@@ -17,8 +17,9 @@
   flex-direction: column;
   align-items: center;
   background-color: #FAFAFA;
-  padding-left: 3vh;
-  padding-right: 3vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  width: 100%;
   min-height: calc(var(--vh, 1vh) * 100);
   box-sizing: border-box;
 }
