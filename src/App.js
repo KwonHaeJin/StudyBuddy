@@ -57,7 +57,7 @@ const Home = () => {
 
 const App = () => {
   return (
-    <div className='backg'>
+    <div className='main'>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -68,9 +68,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {
           <Route path="/detailFeed" element={<DetailFeed />} />
-          }
           <Route path="/todolist" element={<Todolist />} />
         </Routes>
       </BrowserRouter>

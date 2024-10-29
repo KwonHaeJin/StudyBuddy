@@ -142,7 +142,7 @@ function VideoChat() {
   }
 
   return (
-    <div className="main" style={{backgroundColor:"#F2F2F2"}} >
+    <div className="main">
       <div style={{ height: "10vh" }}></div>
       <div style={{ position: "relative", width: "100%", height: "30vh", marginBottom: "2.5vh" }}>
         <video

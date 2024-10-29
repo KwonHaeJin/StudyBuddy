@@ -45,6 +45,7 @@ const ProfileScreen = () => {
         className="searchInput"
         placeholder="search"
         style={{
+          width:"75vw",
           backgroundImage: `url(${searchIcon})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'right 2.5vh center',
