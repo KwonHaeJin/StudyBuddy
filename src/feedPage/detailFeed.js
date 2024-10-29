@@ -68,7 +68,6 @@ const ProfileScreen = () => {
         }}
       />
       <div style={{ height: "2.5vh" }}></div>
-
       <div className="feedContainer">
         {Sample.map((sample, index) => (
           <div key={index} className="feedItem">
@@ -98,7 +97,7 @@ const ProfileScreen = () => {
                   style={{ cursor: 'pointer' }}
                 />
               )}
-              <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight: "bold", marginBottom:"0" }}>{sample.like}</p>
+              <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight: "bold", marginBottom:"0", marginTop:"0"}}>{sample.like}</p>
             </div>
           </div>
         ))}
