@@ -9,7 +9,7 @@
   border-radius: 5vw;
   padding: 2vh;
   height: 30vh;
-  width: 85vw;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,19 +20,19 @@
   display: flex;
   font-family: "Basic";
   flex-direction: row;
-  margin-right: 58vw;
-  margin-top: -1.4vh;
+  margin-right: 48vw;
+  margin-top: -1.8vh;
   margin-bottom: 1.8vh;
 }
 
 .feedImage {
-  width: 70vw;
+  width: 68vw;
   height: 19vh;
   border-radius: 5vw;
 }
 
 .Image {
-  border-radius: 5vw;
+  border-radius: 1.5vw;
 }
 
 .like-container {

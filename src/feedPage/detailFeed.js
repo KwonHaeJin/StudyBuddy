@@ -87,17 +87,17 @@ const ProfileScreen = () => {
               {likes[index] ? (
                 <AiFillHeart
                   onClick={() => toggleLike(index)}
-                  size={24}
-                  style={{ color: 'red', cursor: 'pointer' }}
+                  size={20}
+                  style={{ color: 'red', cursor: 'pointer', marginTop: '3vh', }}
                 />
               ) : (
                 <AiOutlineHeart
                   onClick={() => toggleLike(index)}
-                  size={24}
-                  style={{ cursor: 'pointer' }}
+                  size={20}
+                  style={{ cursor: 'pointer', marginTop: '3vh', }}
                 />
               )}
-              <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight: "bold", marginBottom:"0", marginTop:"0"}}>{sample.like}</p>
+              <p style={{ fontFamily: "Basic", fontSize: "16px", marginBottom:"0", marginTop:"3vh", marginRight:"68vw"}}>{sample.like}</p>
             </div>
           </div>
         ))}
