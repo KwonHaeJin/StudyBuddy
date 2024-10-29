@@ -1,25 +1,35 @@
-.Top-box {
-    width: 55vw;
-    height: 3.7vh;
+.note-box {
     border-radius: 20px;
-    font-size: 15px;
-    text-align: center;
-    color: #8F8F8F;
-    font-family: "Basic";
-    font-weight: bold;
-    background-color: #FFFFFF;
-    border: 1px solid #E6E6E6;
+    border: 1px solid #E4E4E4;
+    font-family: 'Basic';
 }
-.Weekely {
-    width: 229px;
-    height: 26px;
-    top: 106px;
-    left: 16px;
-    gap: 0px;
-    opacity: 0px;
-    font-family: "basic";
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 36.46px;
-    background: #FF7A00;
+
+/* 체크박스 기본 스타일 제거 및 원형 만들기 */
+.check-box {
+    width: 4vh;
+    height: 4vh;
+    border-radius: 50%; /* 원형으로 만들기 */
+    border: 1.5px solid #AEAEAE;
+    appearance: none; /* 기본 체크박스 스타일 제거 */
+    outline: none;
+    position: relative;
+    background-color: #FFFFFF;
+}
+
+/* 체크된 상태 */
+.check-box:checked {
+    background-color: #F2F2F2;
+   
+}
+
+/* 체크된 상태에서 체크 표시 */
+.check-box:checked::after {
+    content: '✓'; /* 체크 표시 */
+    position: absolute;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5vh;
+    color: black;
 }

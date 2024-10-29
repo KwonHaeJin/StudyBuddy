@@ -19,8 +19,6 @@ const ProfileScreen = () => {
     { profile: feedImg2, month: "September", day: "22", like: "22" },
     { profile: feedImg2, month: "September", day: "10", like: "50" },
     { profile: feedImg, month: "September", day: "2", like: "1" },
-
-
   ];
   const toggleLike = (index) => {
     setLikes((prevLikes) => {
