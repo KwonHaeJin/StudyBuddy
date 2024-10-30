@@ -43,11 +43,6 @@ const Home = () => {
         <button onClick={() => navigate("/login")}>
           로그인으로
         </button>
-        {
-        <button onClick={() => navigate("/detailFeed")}>
-          피드 페이지로
-        </button>
-        }
         <button onClick={() => navigate("/todolist")}>
           투두리스트로
         </button>

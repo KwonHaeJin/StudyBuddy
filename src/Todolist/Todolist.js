@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useState } from 'react';
+import { useLongPress } from 'use-long-press';
 import pictureAlram from '../images/bell3.png';
 import iconImg from '../images/icon.png';
 import iconImg2 from '../images/icon2.png';
@@ -18,11 +19,37 @@ const Todolist = () => {
     const month = today.toLocaleString('en-US', { month: 'long' });
     const navigate = useNavigate();
     const [note, setNote] = useState("");
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
+    const [showDPopup, setDShowPopup] = useState(false);
+    const [isExiting, setIsExiting] = useState(false);
+    const [isExiting2, setIsExiting2] = useState(false);
+    const [longPressTimeout, setLongPressTimeout] = useState(null);
+
+    const handleButtonClick = () => {
+        setShowPopup(true);
+    };
+
+    const handleXButtonClick = () => {
+        setShowPopup(false);
+    };
+
+    const handleDelteButton = () =>{
+        setDShowPopup(false);
+    };
 
     const saveNote = event => {
         setNote(event.target.value);
         console.log(event.target.value);
-      };    
+    };
+    const saveTitle = event => {
+        setTitle(event.target.value);
+        console.log(event.target.value);
+    }; const saveContent = event => {
+        setContent(event.target.value);
+        console.log(event.target.value);
+    };
 
     const [tasks, setTasks] = useState([
         { id: 1, profile: iconImg2, checked: true, content: "Running", range: "p100~110", color: "#E1EEE6" },
@@ -39,6 +66,14 @@ const Todolist = () => {
             )
         );
     };
+
+    const bind = useLongPress(() => {
+        setDShowPopup(true);
+    }, {
+        onFinish: () => console.log("Long press finished"),
+        threshold: 1000,
+        capture: true,
+    });
 
     return (
         <div className="main" style={{ marginBottom: "2vh" }}>
@@ -62,11 +97,11 @@ const Todolist = () => {
                 </button>
             </div>
             <p style={{ fontFamily: "Basic", fontSize: "30px", marginRight: "14.5vh", color: "#FF7A00", fontWeight: "Bold", marginBottom: "1vh" }}>Weekely Notes</p>
-            <textarea className="note-box" type="text" value={note} onChange={saveNote}/>
+            <textarea className="note-box" type="text" value={note} onChange={saveNote} />
             <p style={{ marginRight: "21vh", color: "black", fontFamily: "Baisc", fontSize: "20px", fontWeight: "Bold" }}>Today, todolist</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1vh', width: "100%", alignItems: "flex-start" }}>
                 {tasks.map(task => (
-                    <div key={task.id} style={{ border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "17vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: task.color, }}>
+                    <button key={task.id}  {...bind()} style={{ flexDirection: "column", border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "20vh", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: task.color, }}>
                         <div className='row-content'>
                             <img src={task.profile} style={{
                                 width: '5vh',
@@ -82,11 +117,11 @@ const Todolist = () => {
                                 onChange={() => handleCheckboxChange(task.id)}
                             />
                         </div>
-                        <p style={{marginLeft:"2vw", marginTop:"3.5vh", marginBottom:"0.5vh",fontFamily:"Basic", fontSize:"17px", fontWeight:"500"}}>{task.content}</p>
-                        <p style={{marginLeft:"2vw", marginTop:"0",fontFamily:"Basic", fontSize:"12px"}}>{task.range}</p>
-                    </div>
+                        <p style={{ marginLeft: "2vw", marginTop: "3.5vh", marginBottom: "0.5vh", fontFamily: "Basic", fontSize: "17px", fontWeight: "500" }}>{task.content}</p>
+                        <p style={{ marginLeft: "2vw", marginTop: "0", fontFamily: "Basic", fontSize: "12px" }}>{task.range}</p>
+                    </button>
                 ))}
-                <button style={{ display: "flex", border: '1.5px solid #E4E4E4', borderRadius: '20px', padding: '3vh', height: "20vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: "#F2F2F2", flexDirection: "column" }}>
+                <button onClick={handleButtonClick} style={{ display: "flex", border: '1.5px solid #E4E4E4', borderRadius: '20px', padding: '3vh', height: "20vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: "#F2F2F2", flexDirection: "column" }}>
                     <img src={iconImg6} style={{
                         width: '3vh',
                         height: '3vh',
@@ -94,6 +129,42 @@ const Todolist = () => {
                     <p style={{ marginBottom: "0", fontFamily: "Basic", fontSize: "18px", }}>Add to</p>
                     <p style={{ marginTop: "0", fontFamily: "Basic", fontSize: "18px", }}>task</p>
                 </button>
+                <div className={`shadow ${showPopup ? 'active' : ''}`} style={{ display: showPopup ? 'block' : 'none' }}></div>
+                {showPopup && (
+                    <div className={`popup ${isExiting ? 'exiting' : ''}`}>
+                        <div className="popup-content" style={{ width: "80vw", height: "28vh", backgroundColor: "white", border: "1px solid #E6E6E6" }}>
+                            <div style={{ height: "2vh" }}></div>
+                            <div style={{ marginLeft: "4vw" }} className='row-content'>
+                                <p style={{ fontFamily: "Basic", fontSize: "16px" }} >title</p>
+                                <div style={{ width: "10vw" }}></div>
+                                <input type='text' value={title} onChange={saveTitle} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", borderBottom: "1px solid #E4E4E4" }} />
+                            </div>
+                            <div style={{ marginRight: "6vw" }} className='row-content'>
+                                <p style={{ fontFamily: "Basic", fontSize: "16px" }}>contents</p>
+                                <div style={{ width: "10vw" }}></div>
+                                <input type='text' value={content} onChange={saveContent} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", borderBottom: "1px solid #E4E4E4" }} />
+                            </div>
+                            <div style={{ height: "8vh" }}></div>
+                            <div className='row-content'>
+                                <button className="round-button" style={{ backgroundColor: "#FFFFFF", color: "black", fontSize: "12px" }} onClick={handleXButtonClick}>취소</button>
+                                <div style={{ width: "1.5vh" }}></div>
+                                <button className="round-button-orange" style={{ backgroundColor: "#FF7A00", color: "white", fontSize: "12px" }}>완료</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                <div className={`shadow ${showDPopup ? 'active' : ''}`} style={{ display: showDPopup ? 'block' : 'none' }}></div>
+                {showDPopup && (
+                    <div className={`popup ${isExiting2 ? 'exiting' : ''}`}>
+                        <div className="popup-content" style={{ width: "50vw", height: "3.5vh", backgroundColor: "white", border: "1px solid #E6E6E6", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                            <div className='row-content'>
+                                <p style={{ fontFamily: "Basic", fontSize: "16px", fontWeight:"bold" }} >todoTitle</p>
+                                <div style={{ width: "2vw" }}></div>
+                                <button onClick={handleDelteButton} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", color:"red", backgroundColor:"transparent", fontWeight:"bold" }}>삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
