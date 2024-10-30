@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import pictureAlram from '../images/bell3.png';
 import iconImg from '../images/icon.png';
 import iconImg2 from '../images/icon2.png';
@@ -17,6 +17,12 @@ const Todolist = () => {
     const day = today.getDate();
     const month = today.toLocaleString('en-US', { month: 'long' });
     const navigate = useNavigate();
+    const [note, setNote] = useState("");
+
+    const saveNote = event => {
+        setNote(event.target.value);
+        console.log(event.target.value);
+      };    
 
     const [tasks, setTasks] = useState([
         { id: 1, profile: iconImg2, checked: true, content: "Running", range: "p100~110", color: "#E1EEE6" },
@@ -35,7 +41,7 @@ const Todolist = () => {
     };
 
     return (
-        <div className="main" style={{marginBottom:"2vh"}}>
+        <div className="main" style={{ marginBottom: "2vh" }}>
             <div style={{ height: "7vh" }}></div>
             <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
                 <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
@@ -56,7 +62,7 @@ const Todolist = () => {
                 </button>
             </div>
             <p style={{ fontFamily: "Basic", fontSize: "30px", marginRight: "14.5vh", color: "#FF7A00", fontWeight: "Bold", marginBottom: "1vh" }}>Weekely Notes</p>
-            <input className="note-box" type="text" style={{ width: "83vw", height: "13vh" }} />
+            <textarea className="note-box" type="text" value={note} onChange={saveNote}/>
             <p style={{ marginRight: "21vh", color: "black", fontFamily: "Baisc", fontSize: "20px", fontWeight: "Bold" }}>Today, todolist</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1vh', width: "100%", alignItems: "flex-start" }}>
                 {tasks.map(task => (
@@ -78,14 +84,14 @@ const Todolist = () => {
                         </div>
                     </div>
                 ))}
-                 <button style={{ display:"flex",border: '1.5px solid #E4E4E4', borderRadius: '20px', padding: '3vh', height: "20vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor:"#F2F2F2", flexDirection:"column"}}>
-                 <img src={iconImg6} style={{
-                                width: '3vh',
-                                height: '3vh',
-                            }}></img>
-                        <p style={{marginBottom:"0",fontFamily:"Basic", fontSize:"18px", }}>Add to</p>
-                        <p style={{marginTop:"0",fontFamily:"Basic", fontSize:"18px", }}>task</p>
-                    </button>
+                <button style={{ display: "flex", border: '1.5px solid #E4E4E4', borderRadius: '20px', padding: '3vh', height: "20vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: "#F2F2F2", flexDirection: "column" }}>
+                    <img src={iconImg6} style={{
+                        width: '3vh',
+                        height: '3vh',
+                    }}></img>
+                    <p style={{ marginBottom: "0", fontFamily: "Basic", fontSize: "18px", }}>Add to</p>
+                    <p style={{ marginTop: "0", fontFamily: "Basic", fontSize: "18px", }}>task</p>
+                </button>
             </div>
         </div>
     );

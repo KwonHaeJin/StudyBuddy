@@ -2,6 +2,13 @@
     border-radius: 20px;
     border: 1px solid #E4E4E4;
     font-family: 'Basic';
+    width: 83vw;
+    height: 13vh;
+    padding: 2vh;
+    display: flex;
+    align-items: flex-start; 
+    font-size: 15px;
+    font-family: "Basic";
 }
 
 /* 체크박스 기본 스타일 제거 및 원형 만들기 */
