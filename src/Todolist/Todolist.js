@@ -82,6 +82,8 @@ const Todolist = () => {
                                 onChange={() => handleCheckboxChange(task.id)}
                             />
                         </div>
+                        <p style={{marginLeft:"2vw", marginTop:"3.5vh", marginBottom:"0.5vh",fontFamily:"Basic", fontSize:"17px", fontWeight:"500"}}>{task.content}</p>
+                        <p style={{marginLeft:"2vw", marginTop:"0",fontFamily:"Basic", fontSize:"12px"}}>{task.range}</p>
                     </div>
                 ))}
                 <button style={{ display: "flex", border: '1.5px solid #E4E4E4', borderRadius: '20px', padding: '3vh', height: "20vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: "#F2F2F2", flexDirection: "column" }}>
