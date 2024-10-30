@@ -14,7 +14,7 @@ function Home() {
     <View style={styles.container}>
       <WebView
           style={styles.webview}
-          source={{ uri: 'http://172.30.1.78:3000/studyroom' }} />
+          source={{ uri: 'http://192.168.0.37:3000/studyroom' }} />
     </View>
   );
 }
@@ -24,7 +24,7 @@ function List(){
     <View style={styles.container}>
       <WebView
           style={styles.webview}
-          source={{ uri: 'http://172.30.1.78:3000/studyroom' }} />
+          source={{ uri: 'http://192.168.0.37:3000/studyroom' }} />
     </View>
   );
 };
@@ -34,7 +34,7 @@ function Mypage () {
     <View style={styles.container}>
       <WebView
           style={styles.webview}
-          source={{ uri: 'http://172.30.1.78:3000/feed' }} />
+          source={{ uri: 'http://192.168.0.37:3000/feed' }} />
     </View>
   );
 };
@@ -44,7 +44,7 @@ function Camera() {
     <View style={styles.container}>
       <WebView
           style={styles.webview}
-          source={{ uri: 'http://172.30.1.78:3000/camera' }} />
+          source={{ uri: 'http://192.168.0.37:3000/camera' }} />
     </View>
   );
 };
