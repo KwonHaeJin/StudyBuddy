@@ -26,7 +26,7 @@ function notification() {
         <div className="main">
             <div style={{ height: "7vh" }}></div>
             <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
-                <button style={{ position: "absolute", left: "1px", border: "none", backgroundColor: "transparent" }} onClick={() => { navigate('/studyroom'); }}>
+                <button style={{ position: "absolute", left: "1px", border: "none", backgroundColor: "transparent" }} onClick={() => { navigate(-1); }}>
                     <img src={pictureUturn} width='20vw' height='20vh'>
                     </img>
                 </button>

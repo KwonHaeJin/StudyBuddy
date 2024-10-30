@@ -2,10 +2,11 @@
 import '../App.css';
 import './feedPage.css';
 import React from 'react';
-import profImg from '../images/profile2.jpg';
 import feedImg from '../images/feedEx.jpeg';
+import feedImg2 from '../images/feedImg2.png';
+import profImg from '../images/profile2.jpg';
 import searchIcon from '../images/search.png';
-import alarm from '../images/bell3.png';
+import pictureAlram from '../images/bell3.png';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -19,6 +20,15 @@ const ProfileScreen = () => {
   const today = new Date();
   const day = today.getDate();
   const month = today.toLocaleString('en-US', { month: 'long' });
+
+  const Sample = [
+    { profile: feedImg, name: '이우림', id: 'dldnfla', isStudying: true },
+    { profile: feedImg2, name: '권해진', id: 'hjji', isStudying: false },
+    { profile: feedImg, name: '김수민', id: 'sumin', isStudying: false },
+    { profile: feedImg, name: '이우림', id: 'dldnfla', isStudying: true },
+    { profile: feedImg2, name: '이우림', id: 'dldnfla', isStudying: true },
+    { profile: feedImg2, name: '이우림', id: 'dldnfla', isStudying: true },
+  ];
 
   return (
     <div className="main">
@@ -35,8 +45,9 @@ const ProfileScreen = () => {
             setTimeout(() => {
               e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
             }, 200);
+            navigate('/notification');
           }}>
-          <img src={alarm} alt ="" width='20vw' height='20vh'>
+          <img src={pictureAlram} width='20vw' height='20vh'>
           </img>
         </button>
       </div>
@@ -45,7 +56,7 @@ const ProfileScreen = () => {
         className="searchInput"
         placeholder="search"
         style={{
-          width:"75vw",
+          width: "75vw",
           backgroundImage: `url(${searchIcon})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'right 2.5vh center',
@@ -57,7 +68,7 @@ const ProfileScreen = () => {
           alt="Profile"
           className="profileImage"
         />
-        <div style={{width:"5vw"}}></div>
+        <div style={{ width: "5vw" }}></div>
         <div className="profileTextContainer">
           <p className="profileName">이우림</p>
           <p className="profileUsername">dldmfla_</p>
@@ -67,13 +78,13 @@ const ProfileScreen = () => {
         </div>
       </div>
       <div className="galleryContainer">
-        {[...Array(14)].map((_, index) => (
+        {Sample.map((sample, index) => (
           <img
             key={index}
-            src={feedImg}
+            src={sample.profile}
             alt="Gallery Item"
             className="galleryImage"
-          />
+            onClick={() => navigate("/detailFeed")} />
         ))}
       </div>
     </div>
