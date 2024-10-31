@@ -25,18 +25,27 @@ const App = () => {
   function Login() {
     axios.post(
       'http://43.202.203.36:3000/api/login',
-      { "username": id, "password": pw},
+      { 
+        "userId": id, 
+        "password": pw
+      },
       {
-        'headers': { 'Content-Type': 'application/json' }
+        'headers': { 
+          'accept': 'application/json',
+          'Content-Type': 'application/json' }
       }
     ).then((response) => {
       if (response.status == 200) {
        
       }
       else {
-       
+        console.log(id);
+        console.log(pw);
+        console.log(error.response);
       }
     }).catch((error) => {
+      console.log(id);
+      console.log(pw);
       console.log(error.response);
      
     });

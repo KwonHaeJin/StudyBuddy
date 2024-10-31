@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLongPress } from 'use-long-press';
 import pictureAlram from '../images/bell3.png';
 import iconImg from '../images/icon.png';
@@ -8,10 +8,12 @@ import iconImg3 from '../images/icon3.png';
 import iconImg4 from '../images/icon4.png';
 import iconImg5 from '../images/icon5.png';
 import iconImg6 from '../images/plus.png';
+import etc from '../images/etc.png';
 import '../App.css';
 import './Todolist.css';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Todolist = () => {
     const today = new Date();
@@ -26,6 +28,8 @@ const Todolist = () => {
     const [isExiting, setIsExiting] = useState(false);
     const [isExiting2, setIsExiting2] = useState(false);
     const [longPressTimeout, setLongPressTimeout] = useState(null);
+    const [Todolist, setTodolist] = useState([]);
+    const [oneTodolist, setoneTodolist] = useState(null);
 
     const handleButtonClick = () => {
         setShowPopup(true);
@@ -35,7 +39,7 @@ const Todolist = () => {
         setShowPopup(false);
     };
 
-    const handleDelteButton = () =>{
+    const handleDelteButton = () => {
         setDShowPopup(false);
     };
 
@@ -67,13 +71,121 @@ const Todolist = () => {
         );
     };
 
-    const bind = useLongPress(() => {
-        setDShowPopup(true);
-    }, {
-        onFinish: () => console.log("Long press finished"),
-        threshold: 1000,
-        capture: true,
-    });
+    const bind = async (task) => {
+        try {
+          await getOneTodo(task.id);
+          setDShowPopup(true);
+        } catch (error) {
+          console.error('특정 일상 게시판 클릭 실패', error);
+        }
+      };
+    
+
+    const getTodo = async() => {
+        try {
+            const response = await axios.get(
+                'http://43.202.203.36:3000/api/todos', 
+                {
+                'headers': {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 200) {
+                setTodolist(response.data);
+                console.log("투두 목록 가져오기 성공", response.data);
+            }
+        } catch (error) {
+            console.log(`Bearer ${localStorage.getItem("token")}`);
+            console.error("투두 목록 가져오기 실패", error.status);
+        }
+    };
+
+    const getOneTodo = async (id) => {
+        try {
+          const response = await axios.get(`http://43.202.203.36:3000/api/todos/${id}`, {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem("token")}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          if (response.status === 200) {
+            setoneTodolist(response.data); // 상태 업데이트
+            console.log("특정 투두 가져오기 성공", response.data);
+          }
+        } catch (error) {
+          console.error("특정 투두 가져오기 실패", error.response);
+          console.error(error);
+          console.log(id);
+        }
+      };
+
+    function createTodo() {
+        axios.post(
+            `http://43.202.203.36:3000/api/todos`,
+            { "title": title, "contents": content },
+            {
+                'headers': { 
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json' }
+            }
+        ).then((response) => {
+            if (response.status == 201) {
+                handleXButtonClick();
+                Swal.fire({
+                    icon: "success",
+                    text: "Todo 만들기 성공!",
+                });
+                getTodo();
+            }
+            else {
+                Swal.fire({
+                    icon: "warning",
+                    text: "Todo 만들기 실패",
+                });
+            }
+        }).catch((error) => {
+            console.log(error.response);
+            console.log(`${localStorage.getItem('token')}`);
+            Swal.fire({
+                icon: "warning",
+                text: "Todo 만들기 실패",
+            });
+
+        });
+    };
+
+    const deleteTodo = async() => {
+        try {
+            const response = await axios.delete(
+                `http://43.202.203.36:3000/api/todos/${oneTodolist.id}`, 
+                {
+                'headers': {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 204) {
+                Swal.fire({
+                    icon: "success",
+                    text: "Todo 삭제 성공!",
+                });
+                handleDelteButton();
+                console.log("투두 삭제 성공");
+                getTodo();
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: "Todo 삭제 실패",
+            });
+        }
+    };
+
+    useEffect(() => {
+        getTodo();
+    }, []);
+
 
     return (
         <div className="main" style={{ marginBottom: "2vh" }}>
@@ -100,10 +212,10 @@ const Todolist = () => {
             <textarea className="note-box" type="text" value={note} onChange={saveNote} />
             <p style={{ marginRight: "21vh", color: "black", fontFamily: "Baisc", fontSize: "20px", fontWeight: "Bold" }}>Today, todolist</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1vh', width: "100%", alignItems: "flex-start" }}>
-                {tasks.map(task => (
-                    <button key={task.id}  {...bind()} style={{ flexDirection: "column", border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "20vh", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: task.color, }}>
+                {Todolist.map(task => (
+                    <div key={task.id} style={{ position:"relative",flexDirection: "column", border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "17vh", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: 'grey', }}>
                         <div className='row-content'>
-                            <img src={task.profile} style={{
+                            <img src={iconImg} style={{
                                 width: '5vh',
                                 height: '5vh',
                                 marginLeft: '1vh',
@@ -113,13 +225,18 @@ const Todolist = () => {
                             <input
                                 className='check-box'
                                 type="checkbox"
-                                checked={task.checked}
+                                checked={task.isCheck}
                                 onChange={() => handleCheckboxChange(task.id)}
                             />
                         </div>
-                        <p style={{ marginLeft: "2vw", marginTop: "3.5vh", marginBottom: "0.5vh", fontFamily: "Basic", fontSize: "17px", fontWeight: "500" }}>{task.content}</p>
-                        <p style={{ marginLeft: "2vw", marginTop: "0", fontFamily: "Basic", fontSize: "12px" }}>{task.range}</p>
-                    </button>
+                        <div className='row-content'>
+                        <div>
+                        <p style={{ marginLeft: "2vw", marginTop: "3.5vh", marginBottom: "0.5vh", fontFamily: "Basic", fontSize: "17px", fontWeight: "500" }}>{task.title}</p>
+                        <p style={{ marginLeft: "2vw", marginTop: "0", fontFamily: "Basic", fontSize: "12px" }}>{task.contents}</p>
+                        </div>
+                        <img onClick={()=>bind(task)} style={{width:"2vh", height:"2vh", position:"absolute", bottom:"3vh", right:"2vh"}} src={etc}></img>
+                    </div>
+                    </div>
                 ))}
                 <button onClick={handleButtonClick} style={{ display: "flex", border: '1.5px solid #E4E4E4', borderRadius: '20px', padding: '3vh', height: "20vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: "#F2F2F2", flexDirection: "column" }}>
                     <img src={iconImg6} style={{
@@ -148,7 +265,7 @@ const Todolist = () => {
                             <div className='row-content'>
                                 <button className="round-button" style={{ backgroundColor: "#FFFFFF", color: "black", fontSize: "12px" }} onClick={handleXButtonClick}>취소</button>
                                 <div style={{ width: "1.5vh" }}></div>
-                                <button className="round-button-orange" style={{ backgroundColor: "#FF7A00", color: "white", fontSize: "12px" }}>완료</button>
+                                <button className="round-button-orange" style={{ backgroundColor: "#FF7A00", color: "white", fontSize: "12px" }} onClick={()=>{createTodo();}}>완료</button>
                             </div>
                         </div>
                     </div>
@@ -156,11 +273,11 @@ const Todolist = () => {
                 <div className={`shadow ${showDPopup ? 'active' : ''}`} style={{ display: showDPopup ? 'block' : 'none' }}></div>
                 {showDPopup && (
                     <div className={`popup ${isExiting2 ? 'exiting' : ''}`}>
-                        <div className="popup-content" style={{ width: "50vw", height: "3.5vh", backgroundColor: "white", border: "1px solid #E6E6E6", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                        <div className="popup-content" style={{ width: "50vw", height: "3.5vh", backgroundColor: "white", border: "1px solid #E6E6E6", display: "flex", alignItems: "center", justifyContent: "center" }}>
                             <div className='row-content'>
-                                <p style={{ fontFamily: "Basic", fontSize: "16px", fontWeight:"bold" }} >todoTitle</p>
+                                <p style={{ fontFamily: "Basic", fontSize: "16px", fontWeight: "bold" }} >{oneTodolist.title}</p>
                                 <div style={{ width: "2vw" }}></div>
-                                <button onClick={handleDelteButton} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", color:"red", backgroundColor:"transparent", fontWeight:"bold" }}>삭제</button>
+                                <button onClick={()=>{deleteTodo();}} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", color: "red", backgroundColor: "transparent", fontWeight: "bold" }}>삭제</button>
                             </div>
                         </div>
                     </div>
