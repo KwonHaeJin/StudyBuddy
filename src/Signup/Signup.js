@@ -1,10 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Signup.css';
 import '../feedPage/editProfile.css'
 import '../App.css';
 import pictureProfile3 from '../images/profile3.png';
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="main">
       <div style={{ height: "13vh" }}></div>
@@ -33,7 +36,7 @@ const Signup = () => {
         <input className="edit-input2" type="password" />
       </div>
       <div className="button-group">
-        <button type="button" className="cancel">취소</button>
+        <button type="button" className="cancel" onClick={() => { navigate(-1); }}>취소</button>
         <div style={{ width: "3vw" }}></div>
         <button type="submit" className="submit">완료</button>
       </div>
