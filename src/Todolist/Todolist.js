@@ -14,13 +14,14 @@ import './Todolist.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { BaseURL } from '../App';
 
 const Todolist = () => {
     const today = new Date();
     const day = today.getDate();
     const month = today.toLocaleString('en-US', { month: 'long' });
     const navigate = useNavigate();
-    const [note, setNote] = useState("");
+    const [note, setNote] = useState(() => localStorage.getItem("note") || "");
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [showPopup, setShowPopup] = useState(false);
@@ -45,6 +46,7 @@ const Todolist = () => {
 
     const saveNote = event => {
         setNote(event.target.value);
+        localStorage.setItem("note", event.target.value);
         console.log(event.target.value);
     };
     const saveTitle = event => {
@@ -71,26 +73,57 @@ const Todolist = () => {
         );
     };
 
+    const handleEnterKey = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 엔터 키의 기본 동작을 방지 (폼 제출 등)
+            specificFunction(); // 엔터를 눌렀을 때 실행할 함수
+        }
+    };
+    const specificFunction = () => {
+        putNote();
+    };
+
     const bind = async (task) => {
         try {
-          await getOneTodo(task.id);
-          setDShowPopup(true);
+            await getOneTodo(task.id);
+            setDShowPopup(true);
         } catch (error) {
-          console.error('특정 일상 게시판 클릭 실패', error);
+            console.error('특정 일상 게시판 클릭 실패', error);
         }
-      };
-    
+    };
 
-    const getTodo = async() => {
+    const putNote = async () => {
+        try {
+            const response = await axios.put(
+                `${BaseURL}/users/${localStorage.getItem("id")}/weeklyNote`, { weeklyNote: note },
+                {
+                    'headers': {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            if (response.status === 200) {
+                const updatedNote = Array.isArray(response.data) ? response.data[0].weeklyNote : response.data.weeklyNote;
+                localStorage.setItem("note", updatedNote); console.log("노트 업데이트 성공", response.data);
+            }
+        } catch (error) {
+            console.log(`${localStorage.getItem("id")}`);
+            console.log(`Bearer ${localStorage.getItem("token")}`);
+            console.log("보내는 note 데이터:", note);
+            console.error("노트 업데이트 실패", error.response?.status, error.response?.data || error.message);
+        }
+    };
+
+    const getTodo = async () => {
         try {
             const response = await axios.get(
-                'http://43.202.203.36:3000/api/todos', 
+                `${BaseURL}/todos`,
                 {
-                'headers': {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+                    'headers': {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
             if (response.status === 200) {
                 setTodolist(response.data);
                 console.log("투두 목록 가져오기 성공", response.data);
@@ -103,31 +136,32 @@ const Todolist = () => {
 
     const getOneTodo = async (id) => {
         try {
-          const response = await axios.get(`http://43.202.203.36:3000/api/todos/${id}`, {
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem("token")}`,
-              'Content-Type': 'application/json'
+            const response = await axios.get(`${BaseURL}/todos/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 200) {
+                setoneTodolist(response.data); // 상태 업데이트
+                console.log("특정 투두 가져오기 성공", response.data);
             }
-          });
-          if (response.status === 200) {
-            setoneTodolist(response.data); // 상태 업데이트
-            console.log("특정 투두 가져오기 성공", response.data);
-          }
         } catch (error) {
-          console.error("특정 투두 가져오기 실패", error.response);
-          console.error(error);
-          console.log(id);
+            console.error("특정 투두 가져오기 실패", error.response);
+            console.error(error);
+            console.log(id);
         }
-      };
+    };
 
     function createTodo() {
         axios.post(
-            `http://43.202.203.36:3000/api/todos`,
+            `${BaseURL}/todos`,
             { "title": title, "contents": content },
             {
-                'headers': { 
+                'headers': {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json' }
+                    'Content-Type': 'application/json'
+                }
             }
         ).then((response) => {
             if (response.status == 201) {
@@ -155,16 +189,16 @@ const Todolist = () => {
         });
     };
 
-    const deleteTodo = async() => {
+    const deleteTodo = async () => {
         try {
             const response = await axios.delete(
-                `http://43.202.203.36:3000/api/todos/${oneTodolist.id}`, 
+                `${BaseURL}/todos/${oneTodolist.id}`,
                 {
-                'headers': {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+                    'headers': {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
             if (response.status === 204) {
                 Swal.fire({
                     icon: "success",
@@ -209,11 +243,11 @@ const Todolist = () => {
                 </button>
             </div>
             <p style={{ fontFamily: "Basic", fontSize: "30px", marginRight: "14.5vh", color: "#FF7A00", fontWeight: "Bold", marginBottom: "1vh" }}>Weekely Notes</p>
-            <textarea className="note-box" type="text" value={note} onChange={saveNote} />
+            <textarea className="note-box" type="text" value={note} onChange={saveNote} onKeyDown={handleEnterKey} />
             <p style={{ marginRight: "21vh", color: "black", fontFamily: "Baisc", fontSize: "20px", fontWeight: "Bold" }}>Today, todolist</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1vh', width: "100%", alignItems: "flex-start" }}>
                 {Todolist.map(task => (
-                    <div key={task.id} style={{ position:"relative",flexDirection: "column", border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "17vh", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: 'grey', }}>
+                    <div key={task.id} style={{ position: "relative", flexDirection: "column", border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "17vh", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: 'grey', }}>
                         <div className='row-content'>
                             <img src={iconImg} style={{
                                 width: '5vh',
@@ -230,12 +264,12 @@ const Todolist = () => {
                             />
                         </div>
                         <div className='row-content'>
-                        <div>
-                        <p style={{ marginLeft: "2vw", marginTop: "3.5vh", marginBottom: "0.5vh", fontFamily: "Basic", fontSize: "17px", fontWeight: "500" }}>{task.title}</p>
-                        <p style={{ marginLeft: "2vw", marginTop: "0", fontFamily: "Basic", fontSize: "12px" }}>{task.contents}</p>
+                            <div>
+                                <p style={{ marginLeft: "2vw", marginTop: "3.5vh", marginBottom: "0.5vh", fontFamily: "Basic", fontSize: "17px", fontWeight: "500" }}>{task.title}</p>
+                                <p style={{ marginLeft: "2vw", marginTop: "0", fontFamily: "Basic", fontSize: "12px" }}>{task.contents}</p>
+                            </div>
+                            <img onClick={() => bind(task)} style={{ width: "2vh", height: "2vh", position: "absolute", bottom: "3vh", right: "2vh" }} src={etc}></img>
                         </div>
-                        <img onClick={()=>bind(task)} style={{width:"2vh", height:"2vh", position:"absolute", bottom:"3vh", right:"2vh"}} src={etc}></img>
-                    </div>
                     </div>
                 ))}
                 <button onClick={handleButtonClick} style={{ display: "flex", border: '1.5px solid #E4E4E4', borderRadius: '20px', padding: '3vh', height: "20vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: "#F2F2F2", flexDirection: "column" }}>
@@ -265,7 +299,7 @@ const Todolist = () => {
                             <div className='row-content'>
                                 <button className="round-button" style={{ backgroundColor: "#FFFFFF", color: "black", fontSize: "12px" }} onClick={handleXButtonClick}>취소</button>
                                 <div style={{ width: "1.5vh" }}></div>
-                                <button className="round-button-orange" style={{ backgroundColor: "#FF7A00", color: "white", fontSize: "12px" }} onClick={()=>{createTodo();}}>완료</button>
+                                <button className="round-button-orange" style={{ backgroundColor: "#FF7A00", color: "white", fontSize: "12px" }} onClick={() => { createTodo(); }}>완료</button>
                             </div>
                         </div>
                     </div>
@@ -277,7 +311,7 @@ const Todolist = () => {
                             <div className='row-content'>
                                 <p style={{ fontFamily: "Basic", fontSize: "16px", fontWeight: "bold" }} >{oneTodolist.title}</p>
                                 <div style={{ width: "2vw" }}></div>
-                                <button onClick={()=>{deleteTodo();}} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", color: "red", backgroundColor: "transparent", fontWeight: "bold" }}>삭제</button>
+                                <button onClick={() => { deleteTodo(); }} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", color: "red", backgroundColor: "transparent", fontWeight: "bold" }}>삭제</button>
                             </div>
                         </div>
                     </div>

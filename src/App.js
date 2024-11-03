@@ -43,7 +43,7 @@ const Home = () => {
 
   function Login() {
     axios.post(
-      `http://43.202.203.36:3000/api/login`,
+      `${BaseURL}/login`,
       { "userId": id, "password": pw},
       {
         'headers': { 
@@ -120,3 +120,4 @@ const App = () => {
 }
 
 export default App;
+export const BaseURL = "http://43.202.203.36:3000/api";
