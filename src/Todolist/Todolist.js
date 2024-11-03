@@ -21,7 +21,7 @@ const Todolist = () => {
     const day = today.getDate();
     const month = today.toLocaleString('en-US', { month: 'long' });
     const navigate = useNavigate();
-    const [note, setNote] = useState(() => localStorage.getItem("note") || "");
+    const [note, setNote] = useState("");
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [showPopup, setShowPopup] = useState(false);
@@ -65,12 +65,11 @@ const Todolist = () => {
         { id: 5, profile: iconImg5, checked: false, content: "Coding", range: "p100~110", color: "#EFEEEE" },
     ]);
 
+    const colors = ["#E1EEE6", "#F1EDFA", "#F7ECEC", "#EAEBF6", "#EFEEEE"];
+    const icons = [iconImg, iconImg2, iconImg3, iconImg4, iconImg5];
+
     const handleCheckboxChange = (id) => {
-        setTasks(prevTasks =>
-            prevTasks.map(task =>
-                task.id === id ? { ...task, checked: !task.checked } : task
-            )
-        );
+        checkTodo(id);
     };
 
     const handleEnterKey = (event) => {
@@ -103,8 +102,11 @@ const Todolist = () => {
                     }
                 });
             if (response.status === 200) {
-                const updatedNote = Array.isArray(response.data) ? response.data[0].weeklyNote : response.data.weeklyNote;
-                localStorage.setItem("note", updatedNote); console.log("노트 업데이트 성공", response.data);
+                 Swal.fire({
+                    icon: "success",
+                    text: "작성 성공!",
+                });
+                getUser();
             }
         } catch (error) {
             console.log(`${localStorage.getItem("id")}`);
@@ -131,6 +133,26 @@ const Todolist = () => {
         } catch (error) {
             console.log(`Bearer ${localStorage.getItem("token")}`);
             console.error("투두 목록 가져오기 실패", error.status);
+        }
+    };
+
+    const getUser = async () => {
+        try {
+            const response = await axios.get(
+                `${BaseURL}/users/${localStorage.getItem("id")}`,
+                {
+                    'headers': {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            if (response.status === 200) {
+                setNote( response.data.weeklyNote);
+                console.log("유저 정보 가져오기 성공", response.data);
+            }
+        } catch (error) {
+            console.log(`Bearer ${localStorage.getItem("token")}`);
+            console.error("유저 정보 가져오기 실패", error.status);
         }
     };
 
@@ -171,6 +193,7 @@ const Todolist = () => {
                     text: "Todo 만들기 성공!",
                 });
                 getTodo();
+                console.log(`Bearer ${localStorage.getItem("token")}`);
             }
             else {
                 Swal.fire({
@@ -216,8 +239,42 @@ const Todolist = () => {
         }
     };
 
+    const checkTodo = async () => {
+        const URL =  `${BaseURL}/todos/${oneTodolist.id}`;
+        console.log(URL);
+        try {
+            const response = await axios.put(
+                `${BaseURL}/todos/${oneTodolist.id}`,
+                {
+                    "title":oneTodolist.title,
+                    "contents":oneTodolist.contents,
+                    "isCheck":true
+                },
+                {
+                    'headers': {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            if (response.status === 200) {
+                getTodo();
+                console.log('체크박스 변경 성공');
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: "Todo 체크 실패",
+            });
+            console.log(error.response);
+            console.log(oneTodolist.title);
+            console.log(oneTodolist.contents);
+            console.log(oneTodolist.isCheck);
+        }
+    };
+
     useEffect(() => {
         getTodo();
+        getUser();
     }, []);
 
 
@@ -246,10 +303,10 @@ const Todolist = () => {
             <textarea className="note-box" type="text" value={note} onChange={saveNote} onKeyDown={handleEnterKey} />
             <p style={{ marginRight: "21vh", color: "black", fontFamily: "Baisc", fontSize: "20px", fontWeight: "Bold" }}>Today, todolist</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1vh', width: "100%", alignItems: "flex-start" }}>
-                {Todolist.map(task => (
-                    <div key={task.id} style={{ position: "relative", flexDirection: "column", border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "17vh", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: 'grey', }}>
+                {Todolist.map((task, index) => (
+                    <div key={task.id} style={{ position: "relative", flexDirection: "column", border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "17vh", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: colors[index % colors.length], }}>
                         <div className='row-content'>
-                            <img src={iconImg} style={{
+                            <img src={icons[index % icons.length]} style={{
                                 width: '5vh',
                                 height: '5vh',
                                 marginLeft: '1vh',
@@ -260,7 +317,7 @@ const Todolist = () => {
                                 className='check-box'
                                 type="checkbox"
                                 checked={task.isCheck}
-                                onChange={() => handleCheckboxChange(task.id)}
+                                onChange={() => checkTodo(task.id)}
                             />
                         </div>
                         <div className='row-content'>

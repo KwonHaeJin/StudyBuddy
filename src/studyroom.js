@@ -4,6 +4,8 @@ import pictureAlram from './images/bell3.png';
 import pictureProfile from './images/profile.png';
 import pictureProfile2 from './images/profile2.jpg';
 import { useState } from 'react';
+import axios from 'axios';
+import { BaseURL } from './App';
 import { useNavigate } from 'react-router-dom';
 
 function studyroom() {
@@ -52,6 +54,7 @@ function studyroom() {
         setShowPopup(false);
 
     };
+
 
     return (
         <div className="main" style={{marginBottom:"2vh"}}>
