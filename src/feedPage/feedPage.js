@@ -37,19 +37,19 @@ const ProfileScreen = () => {
 
   const getUser = async () => {
     try {
-        const response = await axios.get(
-            `${BaseURL}/users/${localStorage.getItem("id")}`,
-            {
-                'headers': {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-        if (response.status === 200) {
-            setUsername(response.data.username);
-            setIsstudy(response.data.isStudy);
-            console.log("유저 정보 가져오기 성공", response.data);
-        }
+      const response = await axios.get(
+        `${BaseURL}/users`,
+        {
+          'headers': {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      if (response.status === 200) {
+        setUsername(response.data.username);
+        setIsstudy(response.data.isStudy);
+        console.log("유저 정보 가져오기 성공", response.data);
+      }
     } catch (error) {
       console.error("유저 정보 가져오기 실패");
       console.error("에러 메시지:", error.message);  // 에러 메시지 로그
@@ -57,15 +57,15 @@ const ProfileScreen = () => {
 
       // 상태 코드 확인 (에러 응답이 있는 경우)
       if (error.response) {
-          console.error("상태 코드:", error.response.status); 
-          console.error("에러 내용:", error.response.data);  
+        console.error("상태 코드:", error.response.status);
+        console.error("에러 내용:", error.response.data);
       }
     }
-};
+  };
 
-useEffect(() => {
-  getUser();
-}, []);
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <div className="main">

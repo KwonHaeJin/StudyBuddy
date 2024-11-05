@@ -178,7 +178,7 @@ const Todolist = () => {
     const getUser = async () => {
         try {
             const response = await axios.get(
-                `${BaseURL}/users/${localStorage.getItem("id")}`,
+                `${BaseURL}/users`,
                 {
                     'headers': {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`,
