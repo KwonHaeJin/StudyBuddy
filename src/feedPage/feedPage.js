@@ -8,7 +8,9 @@ import profImg from '../images/profile2.jpg';
 import searchIcon from '../images/search.png';
 import pictureAlram from '../images/bell3.png';
 import { useNavigate } from 'react-router-dom';
-
+import { BaseURL } from '../App';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
@@ -29,6 +31,41 @@ const ProfileScreen = () => {
     { profile: feedImg2, name: '이우림', id: 'dldnfla', isStudying: true },
     { profile: feedImg2, name: '이우림', id: 'dldnfla', isStudying: true },
   ];
+
+  const [username, setUsername] = useState("");
+  const [isStudy, setIsstudy] = useState(false);
+
+  const getUser = async () => {
+    try {
+        const response = await axios.get(
+            `${BaseURL}/users/${localStorage.getItem("id")}`,
+            {
+                'headers': {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+        if (response.status === 200) {
+            setUsername(response.data.username);
+            setIsstudy(response.data.isStudy);
+            console.log("유저 정보 가져오기 성공", response.data);
+        }
+    } catch (error) {
+      console.error("유저 정보 가져오기 실패");
+      console.error("에러 메시지:", error.message);  // 에러 메시지 로그
+      console.error("응답 객체:", error.response);    // 전체 응답 객체를 확인
+
+      // 상태 코드 확인 (에러 응답이 있는 경우)
+      if (error.response) {
+          console.error("상태 코드:", error.response.status); 
+          console.error("에러 내용:", error.response.data);  
+      }
+    }
+};
+
+useEffect(() => {
+  getUser();
+}, []);
 
   return (
     <div className="main">
@@ -70,8 +107,8 @@ const ProfileScreen = () => {
         />
         <div style={{ width: "5vw" }}></div>
         <div className="profileTextContainer">
-          <p className="profileName">이우림</p>
-          <p className="profileUsername">dldmfla_</p>
+          <p className="profileName">{username}</p>
+          <p className="profileUsername">{localStorage.getItem("id")}</p>
           <button className="editProfileButton" onClick={handleEditProfile}>
             edit profile
           </button>

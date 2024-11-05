@@ -87,9 +87,48 @@ const Todolist = () => {
             await getOneTodo(task.id);
             setDShowPopup(true);
         } catch (error) {
-            console.error('특정 일상 게시판 클릭 실패', error);
+            console.error('특정 todo 클릭 실패', error);
         }
     };
+
+    const checkTodo = async (task) => {
+        const URL = `${BaseURL}/todos/${task.id}`;
+        try {
+            const response = await axios.put(
+                URL,
+                {
+                    "title": task.title,
+                    "contents": task.contents,
+                    "isCheck": !task.isCheck  // 체크 상태를 반전
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            if (response.status === 200) {
+                getTodo(); // 전체 목록을 다시 불러오는 함수
+                console.log('체크박스 변경 성공');
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: "Todo 체크 실패",
+            });
+            console.error(error.response);
+        }
+    };
+    
+    const checkboxf = async (task) => {
+        try {
+            await checkTodo(task);  // 바로 체크 상태 변경
+        } catch (error) {
+            console.error('투두 체크 실패', error);
+        }
+    };
+    
 
     const putNote = async () => {
         try {
@@ -239,39 +278,6 @@ const Todolist = () => {
         }
     };
 
-    const checkTodo = async () => {
-        const URL =  `${BaseURL}/todos/${oneTodolist.id}`;
-        console.log(URL);
-        try {
-            const response = await axios.put(
-                `${BaseURL}/todos/${oneTodolist.id}`,
-                {
-                    "title":oneTodolist.title,
-                    "contents":oneTodolist.contents,
-                    "isCheck":true
-                },
-                {
-                    'headers': {
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-            if (response.status === 200) {
-                getTodo();
-                console.log('체크박스 변경 성공');
-            }
-        } catch (error) {
-            Swal.fire({
-                icon: "warning",
-                text: "Todo 체크 실패",
-            });
-            console.log(error.response);
-            console.log(oneTodolist.title);
-            console.log(oneTodolist.contents);
-            console.log(oneTodolist.isCheck);
-        }
-    };
-
     useEffect(() => {
         getTodo();
         getUser();
@@ -317,7 +323,7 @@ const Todolist = () => {
                                 className='check-box'
                                 type="checkbox"
                                 checked={task.isCheck}
-                                onChange={() => checkTodo(task.id)}
+                                onChange={() => checkboxf(task)}
                             />
                         </div>
                         <div className='row-content'>
