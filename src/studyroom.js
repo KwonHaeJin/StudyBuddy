@@ -3,7 +3,7 @@ import './App.css';
 import pictureAlram from './images/bell3.png';
 import pictureProfile from './images/profile.png';
 import pictureProfile2 from './images/profile2.jpg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BaseURL } from './App';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +22,7 @@ function studyroom() {
         { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
 
     ];
+    const [followingList, setFollowingList] = useState([]);
 
     const Sample2 = [
         { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
@@ -55,6 +56,27 @@ function studyroom() {
 
     };
 
+    const getfollowing = async () => {
+        try {
+          const response = await axios.get(
+            `${BaseURL}/followings`,
+            {
+              'headers': {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+              }
+            });
+          if (response.status === 200) {
+            setFollowingList(response.data);
+            console.log("팔로잉 가져오기 성공");
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      useEffect(() => {
+        getfollowing();
+      }, []);
 
     return (
         <div className="main" style={{marginBottom:"2vh"}}>
@@ -90,21 +112,21 @@ function studyroom() {
                 </p>
                 <span style={{ display: "block", width: "100%", height: "1px", backgroundColor: "#CECECE", margin: "5px auto 0 auto" }}></span>
                 <div className='scroll-box'>
-                    {Sample.map((sample, index) => (
+                    {followingList.map((following, index) => (
                         <button key={index} onClick={handleButtonClick} className='room-friend-box'>
                             <div style={{ width: "1.3vh" }}></div>
-                            <img src={sample.profile} style={{
+                            <img src={pictureProfile2} style={{
                                 width: '40px',
                                 height: '40px',
                                 borderRadius: '12px',
                                 marginRight: '2vh',
                             }}></img>
                             <div style={{ display: "flex", textAlign: "left", flexDirection: "column" }}>
-                                <p style={{ margin: "-2px", fontFamily: "Basic", fontWeight: "bold", marginTop: "0.2vh", fontSize: "16px" }}>{sample.name}</p>
-                                <p style={{ margin: "0", fontFamily: "Basic", fontSize: "12px", }}>{sample.id}</p>
+                                <p style={{ margin: "-2px", fontFamily: "Basic", fontWeight: "bold", marginTop: "0.2vh", fontSize: "16px" }}>{following.username}</p>
+                                <p style={{ margin: "0", fontFamily: "Basic", fontSize: "12px", }}>{following.userId}</p>
                             </div>
-                            <div style={{ width: "57%", display: "flex", justifyContent: "flex-end" }}>
-                                <p style={{ color: sample.isStudying ? '#2EC316' : '#D0D7CF', fontFamily: "Basic", fontWeight: "bold", fontSize: "15px" }}>studying...</p>
+                            <div style={{ right:"15vw", position:"fixed"}}>
+                                <p style={{ color: following.isStudy ? '#2EC316' : '#D0D7CF', fontFamily: "Basic", fontWeight: "bold", fontSize: "15px" }}>studying...</p>
                             </div>
                         </button>
                     ))}
@@ -140,7 +162,7 @@ function studyroom() {
                             <p style={{ margin: "-2px", fontFamily: "Basic", fontWeight: "bold", marginTop: "0.2vh", fontSize: "16px" }}>{sample.name}</p>
                             <p style={{ margin: "0", fontFamily: "Basic", fontSize: "12px" }}>{sample.id}</p>
                         </div>
-                        <div style={{ width: "57%", display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ right:"15vw", position:"fixed"}}>
                             <p style={{ color: sample.isStudying ? '#2EC316' : '#D0D7CF', fontFamily: "Basic", fontWeight: "bold", fontSize: "15px" }}>studying...</p>
                         </div>
                     </button>

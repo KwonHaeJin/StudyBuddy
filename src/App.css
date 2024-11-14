@@ -52,6 +52,21 @@
   border-radius: 10px;
 }
 
+.scroll-box2 {
+  display: flex;
+  position: absolute;
+  overflow-y: auto;
+  flex-direction: column;
+}
+.scroll-box2::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-box2::-webkit-scrollbar-thumb {
+  background-color: #F2F2F2;
+  border-radius: 5px;
+}
+
 .room-friend-box {
   display: flex;
   align-items: center;
