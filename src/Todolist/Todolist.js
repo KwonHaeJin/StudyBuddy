@@ -52,7 +52,8 @@ const Todolist = () => {
     const saveTitle = event => {
         setTitle(event.target.value);
         console.log(event.target.value);
-    }; const saveContent = event => {
+    }; 
+    const saveContent = event => {
         setContent(event.target.value);
         console.log(event.target.value);
     };

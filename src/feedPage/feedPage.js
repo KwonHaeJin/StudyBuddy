@@ -9,8 +9,9 @@ import searchIcon from '../images/search.png';
 import pictureAlram from '../images/bell3.png';
 import { useNavigate } from 'react-router-dom';
 import { BaseURL } from '../App';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
@@ -33,7 +34,183 @@ const ProfileScreen = () => {
   ];
 
   const [username, setUsername] = useState("");
+  const [userid, setUserId] = useState("");
   const [isStudy, setIsstudy] = useState(false);
+  const [token, setToken] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const searchRef = useRef(null);
+  const [followingList, setFollowingList] = useState([]);
+
+  // console.log = (message) => {
+  //   window.ReactNativeWebView.postMessage(message);
+  // };
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Enter 키 이벤트 처리
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      getList();
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // searchRef가 참조하는 요소 외부를 클릭했는지 확인
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowResults(false); // 결과 창 닫기
+      }
+    };
+
+    // 이벤트 리스너 추가
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const getList = async () => {
+    try {
+      const response = await axios.get(
+        `${BaseURL}/users/${searchTerm}`,
+        {
+          'headers': {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      if (response.status === 200) {
+        const userIds = response.data.map((user) => user.userId).filter((userId) => userId !== userid);
+        setSearchResults(userIds);
+        setShowResults(true);
+        console.log("검색 결과 가져오기 성공");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const getfollowing = async () => {
+    try {
+      const response = await axios.get(
+        `${BaseURL}/followings`,
+        {
+          'headers': {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      if (response.status === 200) {
+        setFollowingList(response.data);
+        console.log("팔로잉 가져오기 성공");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const isFollowing = (userId) => {
+    return followingList.some(following => following.userId === userId);  // 팔로잉 여부 체크
+  };
+
+  const renderFollowButton = (userId) => {
+    return isFollowing(userId) ? (
+      <button  style={{ width: "12vw", height: "3vh", fontSize: "15px", fontFamily: "Basic", backgroundColor: "transparent", border: "none", color: "#FF7A00", marginRight: "6.4vw", fontWeight: "bold" }} onClick={() => handleUnfollow(userId)}>unfollow</button>
+    ) : (
+      <button  style={{ width: "12vw", height: "3vh", fontSize: "15px", fontFamily: "Basic", backgroundColor: "transparent", border: "none", color: "#FF7A00", marginRight: "2vw", fontWeight: "bold" }} onClick={() => handleFollow(userId)}>follow</button>
+    );
+  };
+
+  const handleUnfollow = (userId) => {
+    deleteFollow(userId);
+    console.log(`${userId} 언팔로우`);
+  };
+
+  const handleFollow = (userId) => {
+    postFollow(userId);
+    console.log(`${userId} 팔로우`);
+  };
+
+  function postFollow(userId) {
+    axios.post(
+      `${BaseURL}/follow`,
+      {
+        "followee": userId,
+      },
+      {
+        'headers': {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    ).then((response) => {
+      if (response.status == 201) {
+        Swal.fire({
+          icon: "success",
+          text: "팔로우 성공!",
+        });
+        console.log('이름 변경 성공');
+        getfollowing();
+      }
+      else {
+        Swal.fire({
+          icon: "warning",
+          text: "팔로우 실패",
+        });
+
+        console.log(error.response);
+      }
+    }).catch((error) => {
+      Swal.fire({
+        icon: "warning",
+        text: "팔로우 실패",
+      });
+      console.log(error.response);
+
+    });
+  }
+
+  function deleteFollow(userId) {
+    axios.delete(
+      `${BaseURL}/follow/${userId}`,
+     
+      {
+        'headers': {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    ).then((response) => {
+      if (response.status == 200) {
+        Swal.fire({
+          icon: "success",
+          text: "언팔로우 성공!",
+        });
+        console.log('언팔로우 성공');
+        getfollowing();
+      }
+      else {
+        Swal.fire({
+          icon: "warning",
+          text: "언팔로우 실패",
+        });
+
+        console.log(error.response);
+      }
+    }).catch((error) => {
+      Swal.fire({
+        icon: "warning",
+        text: "언팔로우 실패",
+      });
+      console.log(error.response);
+
+    });
+  }
 
   const getUser = async () => {
     try {
@@ -41,30 +218,44 @@ const ProfileScreen = () => {
         `${BaseURL}/users`,
         {
           'headers': {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'
           }
         });
       if (response.status === 200) {
         setUsername(response.data.username);
+        setUserId(response.data.userId)
         setIsstudy(response.data.isStudy);
         console.log("유저 정보 가져오기 성공", response.data);
+        //window.ReactNativeWebView.postMessage("유저 정보 가져오기 성공: " + JSON.stringify(response.data)); // 성공 메시지 전달
       }
     } catch (error) {
-      console.error("유저 정보 가져오기 실패");
-      console.error("에러 메시지:", error.message);  // 에러 메시지 로그
-      console.error("응답 객체:", error.response);    // 전체 응답 객체를 확인
-
-      // 상태 코드 확인 (에러 응답이 있는 경우)
       if (error.response) {
-        console.error("상태 코드:", error.response.status);
-        console.error("에러 내용:", error.response.data);
+        console.error("응답 오류:", error.response);
+        console.log(`${localStorage.getItem('token')}`);
+        // window.ReactNativeWebView.postMessage(JSON.stringify({
+        //   type: 'USER_DATA',
+        //   status: 'failure',
+        //   error: `응답 오류: ${error.response.data}`
+        // }));
+      } else {
+        console.log(`${localStorage.getItem('token')}`);
+
+        console.error("네트워크 오류:", error.message);
+
+        // window.ReactNativeWebView.postMessage(JSON.stringify({
+        //   type: 'USER_DATA',
+        //   status: 'failure',
+        //   error: `네트워크 오류: ${error.message}`
+        // }));
       }
+
     }
   };
 
   useEffect(() => {
     getUser();
+    getfollowing();
   }, []);
 
   return (
@@ -88,17 +279,50 @@ const ProfileScreen = () => {
           </img>
         </button>
       </div>
-      <input
-        type="text"
-        className="searchInput"
-        placeholder="search"
-        style={{
-          width: "75vw",
-          backgroundImage: `url(${searchIcon})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'right 2.5vh center',
-        }}
-      ></input>
+      <div style={{ position: 'relative' }} ref={searchRef}>
+        <input
+          type="text"
+          className="searchInput"
+          placeholder="search"
+          style={{
+            width: "75vw",
+            backgroundImage: `url(${searchIcon})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 2.5vh center',
+          }}
+          value={searchTerm}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
+        ></input>
+        {showResults && (
+          <div className='scroll-box2'
+            style={{
+              display: "flex",
+              position: 'absolute',
+              top: '100%',
+              marginLeft: '3vw',
+              width: '75vw',
+              height: '15vh',
+              overflowY: 'auto',
+              border: '1px solid #ccc',
+              backgroundColor: 'white',
+              zIndex: 1000,
+              marginTop: '0px',
+            }}
+          >
+            {searchResults.map((userId, index) => (
+              <div className="row-content"
+                key={index}
+                style={{ height: "4.5vh", display: "flex", alignItems: "center", fontSize: "20px", fontFamily: "Basic", borderBottom: "1px solid #eee", justifyContent: "space-between", marginLeft: "2vw", marginRight: "2vw" }}>
+                <p style={{ marginLeft: "1vw" }}>
+                  {userId !== userid ? userId : null}
+                </p>
+{renderFollowButton(userId)}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
       <div className="profileContainer">
         <img
           src={profImg}
@@ -108,7 +332,7 @@ const ProfileScreen = () => {
         <div style={{ width: "5vw" }}></div>
         <div className="profileTextContainer">
           <p className="profileName">{username}</p>
-          <p className="profileUsername">{localStorage.getItem("id")}</p>
+          <p className="profileUsername">{userid}</p>
           <button className="editProfileButton" onClick={handleEditProfile}>
             edit profile
           </button>

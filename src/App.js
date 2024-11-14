@@ -16,18 +16,6 @@ import './Login/Login.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  // 뷰포트 높이를 계산하여 --vh 변수 설정
-  useEffect(() => {
-    const setVhVariable = () => {
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    };
-
-    setVhVariable();
-
-    window.addEventListener("resize", setVhVariable);
-    return () => window.removeEventListener("resize", setVhVariable);
-  }, []);
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
