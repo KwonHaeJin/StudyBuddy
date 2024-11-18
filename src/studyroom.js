@@ -13,176 +13,247 @@ function studyroom() {
     const day = today.getDate();
     const month = today.toLocaleString('en-US', { month: 'long' });
 
-    const Sample = [
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile, name: '김수민', id: 'sumin', isStudying: false },
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-
-    ];
-    const [followingList, setFollowingList] = useState([]);
-
-    const Sample2 = [
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile, name: '김수민', id: 'sumin', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: true },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-
-    ];
-    const [showPopup, setShowPopup] = useState(false);
-    const [isExiting, setIsExiting] = useState(false);
+    const [followingList, setFollowingList] = useState([]); // 팔로잉 리스트
+    const [allUsers, setAllUsers] = useState([]); // 전체 유저 리스트
+    const [favoriteUsers, setFavoriteUsers] = useState([]); // isStudy가 true인 유저
+    const [otherUsers, setOtherUsers] = useState([]); // 나머지 유저
+    const [selectedUser, setSelectedUser] = useState(null); // 선택된 유저
+    const [showPopup, setShowPopup] = useState(false); // 팝업 상태
     const navigate = useNavigate();
 
-    const handleButtonClick = () => {
-        setShowPopup(true);
-    };
-
-    const handleXButtonClick = () => {
-        setShowPopup(false);
-
-    };
-
-    const getfollowing = async () => {
+    // 팔로잉 리스트 가져오기
+    const getFollowing = async () => {
         try {
-          const response = await axios.get(
-            `${BaseURL}/followings`,
-            {
-              'headers': {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json'
-              }
+            const response = await axios.get(`${BaseURL}/followings`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
             });
-          if (response.status === 200) {
-            setFollowingList(response.data);
-            console.log("팔로잉 가져오기 성공");
-          }
+            if (response.status === 200) {
+                setFollowingList(response.data || []); // null 체크
+                console.log('팔로잉 가져오기 성공');
+            }
         } catch (error) {
-          console.error("Error fetching data:", error);
+            console.error('Error fetching following data:', error);
         }
-      };
-      useEffect(() => {
-        getfollowing();
-      }, []);
+    };
+
+    // 전체 유저 리스트 가져오기
+    const getAllUsers = async () => {
+        try {
+            const response = await axios.get(`${BaseURL}/allUsers`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.status === 200) {
+                setAllUsers(response.data || []); // null 체크
+                console.log('전체 유저 가져오기 성공');
+            }
+        } catch (error) {
+            console.error('Error fetching all users:', error);
+        }
+    };
+
+    // Study With Me 요청 처리
+    const handleStudyRequest = () => {
+        if (!selectedUser || !selectedUser.userId) {
+            console.error('유효하지 않은 사용자입니다.');
+            return;
+        }
+        const message = JSON.stringify({
+            action: 'studyRequest',
+            userId: selectedUser.userId,
+        });
+        window.ReactNativeWebView?.postMessage(message);
+        console.log('Study With Me 요청 전송:', message);
+        setShowPopup(false);
+    };
+
+    useEffect(() => {
+        // 데이터를 자동으로 갱신하기 위한 주기적 업데이트 설정
+        const interval = setInterval(() => {
+            getFollowing();
+            getAllUsers();
+        }, 5000); // 5초마다 업데이트
+
+        // 컴포넌트 언마운트 시 클리어
+        return () => clearInterval(interval);
+    }, []);
+
+    // 로드 시 데이터 가져오기
+    useEffect(() => {
+        getFollowing();
+        getAllUsers();
+    }, []);
+
+    // favoriteUsers와 otherUsers 계산
+    useEffect(() => {
+        if (Array.isArray(followingList) && Array.isArray(allUsers)) {
+            const followingUserIds = new Set(followingList.map((user) => user.userId));
+            setFavoriteUsers(followingList.filter((user) => user.isStudy));
+            setOtherUsers(
+                allUsers.filter((user) => !followingUserIds.has(user.userId))
+            );
+        }
+    }, [followingList, allUsers]);
 
     return (
-        <div className="main" style={{marginBottom:"2vh"}}>
-            <div style={{ height: "7vh" }}></div>
-            <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
-                <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-                    <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '14px' }}>{month},</p>
-                    <div style={{ width: "2vw" }}></div>
-                    <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '14px' }}>{day}</p>
+        <div className="main" style={{ marginBottom: '2vh' }}>
+            <div style={{ height: '7vh' }}></div>
+            <div style={{ display: 'flex', position: 'relative', alignItems: 'center', width: '100%' }}>
+                <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+                    <p style={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', fontSize: '14px' }}>{month},</p>
+                    <div style={{ width: '2vw' }}></div>
+                    <p style={{ color: '#FF7A00', display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '14px' }}>{day}</p>
                 </div>
-                <button style={{ position: "absolute", right: "1px", border: "none", backgroundColor: "transparent", transition: "transform 0.2s ease-in-out", }} 
-                onClick={(e) => {
-                    e.target.style.transform = "scale(0.9)";  // 버튼 클릭 시 확대 효과
-                    setTimeout(() => {
-                        e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
-                    }, 200);
-                    navigate('/notification');
-                }}>
-                    <img src={pictureAlram} width='20vw' height='20vh'>
-                    </img>
+                <button
+                    style={{
+                        position: 'absolute',
+                        right: '1px',
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                        transition: 'transform 0.2s ease-in-out',
+                    }}
+                    onClick={(e) => {
+                        e.target.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            e.target.style.transform = 'scale(1)';
+                        }, 200);
+                        navigate('/notification');
+                    }}
+                >
+                    <img src={pictureAlram} width="20vw" height="20vh" alt="알람 아이콘" />
                 </button>
             </div>
-            <div style={{ width: "100%" }}>
-                <div style={{ height: "1.2vh" }}></div>
-                <p style={{ display: "flex", alignItems: "flex-start", fontFamily: "Basic", fontWeight: "bold", fontSize: "28px", marginBottom: "0", color: "#FF7A00" }}>
+            <div style={{ width: '100%' }}>
+                <div style={{ height: '1.2vh' }}></div>
+                <p style={{ display: 'flex', alignItems: 'flex-start', fontFamily: 'Basic', fontWeight: 'bold', fontSize: '28px', marginBottom: '0', color: '#FF7A00' }}>
                     Who is
                 </p>
-                <p style={{ fontFamily: "Basic", fontWeight: "bold", fontSize: "28px", color: "#FF7A00", margin: "0" }}>
+                <p style={{ fontFamily: 'Basic', fontWeight: 'bold', fontSize: '28px', color: '#FF7A00', margin: '0' }}>
                     Studying
                 </p>
-                <p style={{ fontFamily: "Basic", fontSize: "22px", fontWeight: "bold", marginBottom: "0.5vh", marginTop: "0.5vh" }}>
-                    favorite
-                </p>
-                <span style={{ display: "block", width: "100%", height: "1px", backgroundColor: "#CECECE", margin: "5px auto 0 auto" }}></span>
-                <div className='scroll-box'>
-                    {followingList.map((following, index) => (
-                        <button key={index} onClick={handleButtonClick} className='room-friend-box'>
-                            <div style={{ width: "1.3vh" }}></div>
-                            <img src={pictureProfile2} style={{
+
+                {/* Favorite Users */}
+                <p style={{ fontFamily: 'Basic', fontSize: '22px', fontWeight: 'bold', marginBottom: '0.5vh', marginTop: '0.5vh' }}>favorite</p>
+                <span style={{ display: 'block', width: '100%', height: '1px', backgroundColor: '#CECECE', margin: '5px auto 0 auto' }}></span>
+                <div className="scroll-box">
+                    {favoriteUsers.map((user, index) => (
+                        <button
+                            key={index}
+                            className="room-friend-box"
+                            onClick={() => {
+                                if (user.isStudy) {
+                                    setSelectedUser(user);
+                                    setShowPopup(true);
+                                }
+                            }}
+                        >
+                            <div style={{ width: '1.3vh' }}></div>
+                            <img
+                                src={user.profile}
+                                style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '12px',
+                                    marginRight: '2vh',
+                                }}
+                                alt={"프로필"}
+                            />
+                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
+                                <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: 'bold', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
+                                <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
+                            </div>
+                            <div style={{ right: '15vw', position: 'fixed' }}>
+                                <p
+                                    style={{
+                                        color: user.isStudy ? '#2EC316' : '#D0D7CF',
+                                        fontFamily: 'Basic',
+                                        fontWeight: 'bold',
+                                        fontSize: '15px',
+                                    }}
+                                >
+                                    {user.isStudy ? 'studying...' : ''}
+                                </p>
+                            </div>
+                        </button>
+                    ))}
+                </div>
+
+                {/* Other Users */}
+                <p style={{ fontFamily: 'Basic', fontSize: '22px', fontWeight: 'bold', marginBottom: '1vh' }}>other user</p>
+                <span style={{ display: 'block', width: '100%', height: '1px', backgroundColor: '#CECECE', margin: '5px auto 0 auto' }}></span>
+                {otherUsers.map((user, index) => (
+                    <button
+                        key={index}
+                        className="room-friend-box"
+                        onClick={() => {
+                            if (user.isStudy) {
+                                setSelectedUser(user);
+                                setShowPopup(true);
+                            }
+                        }}
+                    >
+                        <div style={{ width: '1.3vh' }}></div>
+                        <img
+                            src={user.profile}
+                            style={{
                                 width: '40px',
                                 height: '40px',
                                 borderRadius: '12px',
                                 marginRight: '2vh',
-                            }}></img>
-                            <div style={{ display: "flex", textAlign: "left", flexDirection: "column" }}>
-                                <p style={{ margin: "-2px", fontFamily: "Basic", fontWeight: "bold", marginTop: "0.2vh", fontSize: "16px" }}>{following.username}</p>
-                                <p style={{ margin: "0", fontFamily: "Basic", fontSize: "12px", }}>{following.userId}</p>
-                            </div>
-                            <div style={{ right:"15vw", position:"fixed"}}>
-                                <p style={{ color: following.isStudy ? '#2EC316' : '#D0D7CF', fontFamily: "Basic", fontWeight: "bold", fontSize: "15px" }}>studying...</p>
-                            </div>
-                        </button>
-                    ))}
-                    <div className={`shadow ${showPopup ? 'active' : ''}`} style={{ display: showPopup ? 'block' : 'none' }}></div>
-                    {showPopup && (
-                        <div className={`popup ${isExiting ? 'exiting' : ''}`}>
-                            <div className="popup-content">
-                                <p style={{ marginBottom: "0" }}>study with me</p>
-                                <p style={{ marginTop: "0" }}>를 신청하시겠습니까?</p>
-                                <div className='row-content'>
-                                    <button className="round-button" style={{ backgroundColor: "#FFFFFF", color: "black", fontSize: "12px" }} onClick={handleXButtonClick}>취소</button>
-                                    <div style={{ width: "1.5vh" }}></div>
-                                    <button className="round-button-orange" style={{ backgroundColor: "#FF7A00", color: "white", fontSize: "12px" }}>네</button>
-                                </div>
-                            </div>
+                            }}
+                            alt={`${user.username} 프로필`}
+                        />
+                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
+                            <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: 'bold', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
+                            <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
                         </div>
-                    )}
-                </div>
-                <p style={{ fontFamily: "Basic", fontSize: "22px", fontWeight: "bold", marginBottom: "1vh" }}>
-                    other user
-                </p>
-                <span style={{ display: "block", width: "100%", height: "1px", backgroundColor: "#CECECE", margin: "5px auto 0 auto" }}></span>
-                {Sample2.map((sample, index) => (
-                    <button key={index} onClick={handleButtonClick} className='room-friend-box'>
-                        <div style={{ width: "1.3vh" }}></div>
-                        <img src={sample.profile} style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '12px',
-                            marginRight: '2vh',
-                        }}></img>
-                        <div style={{ display: "flex", textAlign: "left", flexDirection: "column" }}>
-                            <p style={{ margin: "-2px", fontFamily: "Basic", fontWeight: "bold", marginTop: "0.2vh", fontSize: "16px" }}>{sample.name}</p>
-                            <p style={{ margin: "0", fontFamily: "Basic", fontSize: "12px" }}>{sample.id}</p>
-                        </div>
-                        <div style={{ right:"15vw", position:"fixed"}}>
-                            <p style={{ color: sample.isStudying ? '#2EC316' : '#D0D7CF', fontFamily: "Basic", fontWeight: "bold", fontSize: "15px" }}>studying...</p>
+                        <div style={{ right: '15vw', position: 'fixed' }}>
+                            <p
+                                style={{
+                                    color: user.isStudy ? '#2EC316' : '#D0D7CF',
+                                    fontFamily: 'Basic',
+                                    fontWeight: 'bold',
+                                    fontSize: '15px',
+                                }}
+                            >
+                                {user.isStudy ? 'studying...' : 'studying...'}
+                            </p>
                         </div>
                     </button>
                 ))}
-                <div className={`shadow ${showPopup ? 'active' : ''}`} style={{ display: showPopup ? 'block' : 'none' }}></div>
-                {showPopup && (
-                    <div className={`popup ${isExiting ? 'exiting' : ''}`}>
-                        <div className="popup-content">
-                            <p style={{ marginBottom: "0", fontSize: "15px", textShadow: "none" }}>study with me</p>
-                            <p style={{ marginTop: "0", fontSize: "15px" }}>를 신청하시겠습니까?</p>
-                            <div className='row-content'>
-                                <button className="round-button" style={{ backgroundColor: "#FFFFFF", color: "black", fontSize: "12px" }} onClick={handleXButtonClick}>취소</button>
-                                <div style={{ width: "1.5vh" }}></div>
-                                <button className="round-button-orange" style={{ backgroundColor: "#FF7A00", color: "white", fontSize: "12px" }}>네</button>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
 
+            {/* Popup */}
+            {showPopup && selectedUser && (
+                <div className={`popup ${showPopup ? 'active' : ''}`}>
+                    <div className="popup-content">
+                        <p style={{ marginBottom: '0' }}>study with me</p>
+                        <p style={{ marginTop: '0' }}>를 신청하시겠습니까?</p>
+                        <div className="row-content">
+                            <button
+                                className="round-button"
+                                style={{ backgroundColor: '#FFFFFF', color: 'black', fontSize: '12px' }}
+                                onClick={() => setShowPopup(false)}
+                            >
+                                취소
+                            </button>
+                            <div style={{ width: '1.5vh' }}></div>
+                            <button
+                                className="round-button-orange"
+                                style={{ backgroundColor: '#FF7A00', color: 'white', fontSize: '12px' }}
+                                onClick={handleStudyRequest}
+                            >
+                                네
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
