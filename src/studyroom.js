@@ -141,7 +141,7 @@ function studyroom() {
                 <p style={{ fontFamily: 'Basic', fontSize: '22px', fontWeight: 'bold', marginBottom: '0.5vh', marginTop: '0.5vh' }}>favorite</p>
                 <span style={{ display: 'block', width: '100%', height: '1px', backgroundColor: '#CECECE', margin: '5px auto 0 auto' }}></span>
                 <div className="scroll-box">
-                    {favoriteUsers.map((user, index) => (
+                    {followingList.map((user, index) => (
                         <button
                             key={index}
                             className="room-friend-box"
@@ -176,7 +176,7 @@ function studyroom() {
                                         fontSize: '15px',
                                     }}
                                 >
-                                    {user.isStudy ? 'studying...' : ''}
+                                    {user.isStudy ? 'studying...' : 'studying...'}
                                 </p>
                             </div>
                         </button>
