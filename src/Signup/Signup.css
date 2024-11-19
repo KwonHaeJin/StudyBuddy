@@ -18,7 +18,7 @@
 
 .cancel {
     width: 40vw;
-    height: 3.8vh;
+    height: 4.7vh;
     background-color: #FFFFFF;
     color: #000000;
     border: 1px solid #E6E6E6;
@@ -28,8 +28,8 @@
 
 .submit {
     width: 40vw;
-    height: 3.8vh;
-    background-color: #ff6600;
+    height: 4.7vh;
+    background-color: #ff9500;
     border: none;
     color: white;
     border-radius: 30px;

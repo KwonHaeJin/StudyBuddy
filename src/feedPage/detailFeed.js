@@ -37,28 +37,28 @@ const ProfileScreen = () => {
     <div className="main" style={{ marginBottom: "2vh" }}>
       <div style={{ height: "7vh" }}></div>
       <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
-                <button style={{ position: "absolute", left: "1px", border: "none", backgroundColor: "transparent" }} onClick={() => { navigate(-1); }}>
-                    <img src={pictureUturn} width='20vw' height='20vh'>
-                    </img>
-                </button>
-                <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-                    <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '14px' }}>{month},</p>
-                    <div style={{ width: "2vw" }}></div>
-                    <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '14px' }}>{day}</p>
-                </div>
-                <button style={{ position: "absolute", right: "1px", border: "none", backgroundColor: "transparent", transition: "transform 0.2s ease-in-out", }} 
-                onClick={(e) => {
-                    e.target.style.transform = "scale(0.9)";  // 버튼 클릭 시 확대 효과
-                    setTimeout(() => {
-                        e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
-                    }, 200);
-                    navigate('/notification');
-                }}>
-                    <img src={pictureAlram} width='20vw' height='20vh'>
-                    </img>
-                </button>
-            </div>
-
+        <button style={{ position: "absolute", left: "1px", border: "none", backgroundColor: "transparent" }} onClick={() => { navigate(-1); }}>
+          <img src={pictureUturn} width='20vw' height='20vh'>
+          </img>
+        </button>
+        <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+          <p style={{ fontWeight: '500', display: 'flex', alignItems: 'center', fontSize: '14px' }}>{month},</p>
+          <div style={{ width: '2vw' }}></div>
+          <p style={{ color: '#FF9500', display: 'flex', alignItems: 'center', fontWeight: '500', fontSize: '14px' }}>{day}</p>
+        </div>
+        <button style={{ position: "absolute", right: "1px", border: "none", backgroundColor: "transparent", transition: "transform 0.2s ease-in-out", }}
+          onClick={(e) => {
+            e.target.style.transform = "scale(0.9)";  // 버튼 클릭 시 확대 효과
+            setTimeout(() => {
+              e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
+            }, 200);
+            navigate('/notification');
+          }}>
+          <img src={pictureAlram} width='25vw' height='25vh'>
+          </img>
+        </button>
+      </div>
+      <div style={{ height: "2vh" }}></div>
       <input
         type="text"
         className="searchInput"
@@ -74,7 +74,7 @@ const ProfileScreen = () => {
       <div className="feedContainer">
         {Sample.map((sample, index) => (
           <div key={index} className="feedItem">
-            <div className='feedDate' >
+            <div className='feedDate' style={{display:"flex", justifyContent:"flex-start"}}>
               <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '19px', marginTop: "0", marginBottom: "0" }}>{sample.month},</p>
               <div style={{ width: "1vw" }}></div>
               <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '19px', marginTop: "0", marginBottom: "0" }}>{sample.day}</p>
@@ -82,7 +82,6 @@ const ProfileScreen = () => {
             <div className='feedImage'>
               <img className='Image'
                 src={sample.profile}
-                width="100%"
                 height="100%"
               />
             </div>
@@ -91,16 +90,16 @@ const ProfileScreen = () => {
                 <AiFillHeart
                   onClick={() => toggleLike(index)}
                   size={20}
-                  style={{ color: 'red', cursor: 'pointer', marginTop: '3vh', }}
+                  style={{ color: 'red', cursor: 'pointer',  }}
                 />
               ) : (
                 <AiOutlineHeart
                   onClick={() => toggleLike(index)}
                   size={20}
-                  style={{ cursor: 'pointer', marginTop: '3vh', }}
+                  style={{ cursor: 'pointer',  }}
                 />
               )}
-              <p style={{ fontFamily: "Basic", fontSize: "16px", marginBottom:"0", marginTop:"3vh", marginRight:"68vw"}}>{sample.like}</p>
+              <p style={{ fontFamily: "Basic", fontSize: "16px" }}>{sample.like}</p>
             </div>
           </div>
         ))}

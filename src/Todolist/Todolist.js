@@ -2,12 +2,20 @@
 import React, { useState, useEffect } from 'react';
 import { useLongPress } from 'use-long-press';
 import pictureAlram from '../images/bell3.png';
-import iconImg from '../images/icon.png';
-import iconImg2 from '../images/icon2.png';
-import iconImg3 from '../images/icon3.png';
-import iconImg4 from '../images/icon4.png';
-import iconImg5 from '../images/icon5.png';
-import iconImg6 from '../images/plus.png';
+import iconImg from '../images/todoicon.png';
+import iconImg2 from '../images/todoicon2.png';
+import iconImg3 from '../images/todoicon3.png';
+import iconImg4 from '../images/todoicon4.png';
+import iconImg5 from '../images/todoicon5.png';
+import iconImg12 from '../images/todoicon6.png';
+import iconImg7 from '../images/todoicon7.png';
+import iconImg8 from '../images/todoicon8.png';
+import iconImg9 from '../images/todoicon9.png';
+import iconImg10 from '../images/todoicon10.png';
+import iconImg11 from '../images/todoicon11.png';
+import iconImg6 from '../images/plusicon.png';
+import pirctureNote from '../images/edit.png';
+import pirctureClipbo from '../images/clipboard.png';
 import etc from '../images/etc.png';
 import '../App.css';
 import './Todolist.css';
@@ -38,6 +46,7 @@ const Todolist = () => {
 
     const handleXButtonClick = () => {
         setShowPopup(false);
+setDShowPopup(false);
     };
 
     const handleDelteButton = () => {
@@ -52,22 +61,14 @@ const Todolist = () => {
     const saveTitle = event => {
         setTitle(event.target.value);
         console.log(event.target.value);
-    }; 
+    };
     const saveContent = event => {
         setContent(event.target.value);
         console.log(event.target.value);
     };
 
-    const [tasks, setTasks] = useState([
-        { id: 1, profile: iconImg2, checked: true, content: "Running", range: "p100~110", color: "#E1EEE6" },
-        { id: 2, profile: iconImg, checked: false, content: "Bicycle", range: "p100~110", color: "#F1EDFA" },
-        { id: 3, profile: iconImg3, checked: true, content: "Security", range: "p100~110", color: "#F7ECEC" },
-        { id: 4, profile: iconImg4, checked: false, content: "Network", range: "p100~110", color: "#EAEBF6" },
-        { id: 5, profile: iconImg5, checked: false, content: "Coding", range: "p100~110", color: "#EFEEEE" },
-    ]);
-
-    const colors = ["#E1EEE6", "#F1EDFA", "#F7ECEC", "#EAEBF6", "#EFEEEE"];
-    const icons = [iconImg, iconImg2, iconImg3, iconImg4, iconImg5];
+    const colors = ["#B3E4C7", "#9BC6DB", "#F4C2C2", "#FACE92", "#EFEEEE"];
+    const icons = [iconImg, iconImg2, iconImg3, iconImg4, iconImg5, iconImg7,iconImg8, iconImg9, iconImg10, iconImg11, iconImg12];
 
     const handleCheckboxChange = (id) => {
         checkTodo(id);
@@ -110,6 +111,10 @@ const Todolist = () => {
                 }
             );
             if (response.status === 200) {
+                Swal.fire({
+                    icon: "success",
+                    text: "투두 체크 성공!",
+                });
                 getTodo(); // 전체 목록을 다시 불러오는 함수
                 console.log('체크박스 변경 성공');
             }
@@ -121,7 +126,7 @@ const Todolist = () => {
             console.error(error.response);
         }
     };
-    
+
     const checkboxf = async (task) => {
         try {
             await checkTodo(task);  // 바로 체크 상태 변경
@@ -129,7 +134,7 @@ const Todolist = () => {
             console.error('투두 체크 실패', error);
         }
     };
-    
+
 
     const putNote = async () => {
         try {
@@ -142,7 +147,7 @@ const Todolist = () => {
                     }
                 });
             if (response.status === 200) {
-                 Swal.fire({
+                Swal.fire({
                     icon: "success",
                     text: "작성 성공!",
                 });
@@ -187,7 +192,7 @@ const Todolist = () => {
                     }
                 });
             if (response.status === 200) {
-                setNote( response.data.weeklyNote);
+                setNote(response.data.weeklyNote);
                 console.log("유저 정보 가져오기 성공", response.data);
             }
         } catch (error) {
@@ -289,10 +294,10 @@ const Todolist = () => {
         <div className="main" style={{ marginBottom: "2vh" }}>
             <div style={{ height: "7vh" }}></div>
             <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
-                <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-                    <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '14px' }}>{month},</p>
-                    <div style={{ width: "2vw" }}></div>
-                    <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '14px' }}>{day}</p>
+                <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+                    <p style={{ fontWeight: '500', display: 'flex', alignItems: 'center', fontSize: '14px' }}>{month},</p>
+                    <div style={{ width: '2vw' }}></div>
+                    <p style={{ color: '#FF9500', display: 'flex', alignItems: 'center', fontWeight: '500', fontSize: '14px' }}>{day}</p>
                 </div>
                 <button style={{ position: "absolute", right: "1px", border: "none", backgroundColor: "transparent", transition: "transform 0.2s ease-in-out", }}
                     onClick={(e) => {
@@ -302,68 +307,81 @@ const Todolist = () => {
                         }, 200);
                         navigate('/notification');
                     }}>
-                    <img src={pictureAlram} width='20vw' height='20vh'>
+                    <img src={pictureAlram} width='25vw' height='25vh'>
                     </img>
                 </button>
             </div>
-            <p style={{ fontFamily: "Basic", fontSize: "30px", marginRight: "14.5vh", color: "#FF7A00", fontWeight: "Bold", marginBottom: "1vh" }}>Weekely Notes</p>
+            <div style={{ height: "6vh" }}></div>
+            <div className='row-content' style={{ display: "flex", justifyContent: "flex-start", width: "100%", marginBottom: "1.5vh" }}>
+                <img src={pirctureNote} style={{ width: "6vw", height: "6vw" }}></img>
+                <p style={{ marginLeft: "3vw", fontFamily: 'Basic', fontSize: '20px', fontWeight: '500', marginBottom: '0.5vh', marginTop: '0.5vh' }}>Weekly Notes</p>
+            </div>
             <textarea className="note-box" type="text" value={note} onChange={saveNote} onKeyDown={handleEnterKey} />
-            <p style={{ marginRight: "21vh", color: "black", fontFamily: "Baisc", fontSize: "20px", fontWeight: "Bold" }}>Today, todolist</p>
+            <div className='row-content' style={{ display: "flex", justifyContent: "flex-start", width: "100%", marginBottom: "1.5vh", marginTop:"1.5vh" }}>
+                <img src={pirctureClipbo} style={{ width: "6vw", height: "6vw" }}></img>
+                <p style={{ marginLeft: "3vw", fontFamily: 'Basic', fontSize: '20px', fontWeight: '500', marginBottom: '0.5vh', marginTop: '0.5vh' }}>Today, To Do List</p>
+            </div>            
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1vh', width: "100%", alignItems: "flex-start" }}>
                 {Todolist.map((task, index) => (
-                    <div key={task.id} style={{ position: "relative", flexDirection: "column", border: 'none', borderRadius: '2vh', padding: '1.5vh', height: "17vh", display: "flex", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: colors[index % colors.length], }}>
-                        <div className='row-content'>
+                    <div key={task.id} style={{ position: "relative", flexDirection: "column", border:  `2px solid ${colors[index % colors.length]}`, borderRadius: '3vh', padding: '1.5vh', height: "15vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "white", }}>
+                        <div className='row-content'style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
                             <img src={icons[index % icons.length]} style={{
                                 width: '5vh',
                                 height: '5vh',
-                                marginLeft: '1vh',
-                                marginTop: '1vh',
+                                marginTop:"3vh"
                             }}></img>
-                            <div style={{ width: "10vw" }}></div>
                             <input
                                 className='check-box'
                                 type="checkbox"
                                 checked={task.isCheck}
+                                style={{
+                                    position: 'absolute', 
+                                    top: '0', 
+                                    right: '0', 
+                                    marginTop: '1vh',
+                                    marginRight:"0",
+                                    border:  `1px solid ${colors[index % colors.length]}`,
+                                }} 
                                 onChange={() => checkboxf(task)}
                             />
                         </div>
                         <div className='row-content'>
-                            <div>
-                                <p style={{ marginLeft: "2vw", marginTop: "3.5vh", marginBottom: "0.5vh", fontFamily: "Basic", fontSize: "17px", fontWeight: "500" }}>{task.title}</p>
-                                <p style={{ marginLeft: "2vw", marginTop: "0", fontFamily: "Basic", fontSize: "12px" }}>{task.contents}</p>
+                            <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
+                                <p style={{ marginTop: "2vh", marginBottom: "0", fontFamily: "Basic", fontSize: "17px", fontWeight: "700", color:`${colors[index % colors.length]}` }}>{task.title}</p>
+                                <p style={{ marginTop: "0", fontFamily: "Basic", fontSize: "12px",  color:`${colors[index % colors.length]}` }}>{task.contents}</p>
                             </div>
-                            <img onClick={() => bind(task)} style={{ width: "2vh", height: "2vh", position: "absolute", bottom: "3vh", right: "2vh" }} src={etc}></img>
+                            <img onClick={() => bind(task)} style={{ width: "2vh", height: "2vh",  position: 'absolute', 
+                                    bottom: '1.5vh', 
+                                    right: '1vh' }} src={etc}></img>
                         </div>
                     </div>
                 ))}
-                <button onClick={handleButtonClick} style={{ display: "flex", border: '1.5px solid #E4E4E4', borderRadius: '20px', padding: '3vh', height: "20vh", alignItems: "flex-start", justifyContent: "flex-start", backgroundColor: "#F2F2F2", flexDirection: "column" }}>
+                <button onClick={handleButtonClick} style={{ display: "flex", border:"none",borderRadius: '3vh', padding: '3vh', height: "18.4vh", alignItems: "center", justifyContent: "center", backgroundColor: "#AEAEAE", flexDirection: "column", color:"white" }}>
                     <img src={iconImg6} style={{
-                        width: '3vh',
-                        height: '3vh',
+                        width: '2.4vh',
+                        height: '2.4vh',
                     }}></img>
-                    <p style={{ marginBottom: "0", fontFamily: "Basic", fontSize: "18px", }}>Add to</p>
-                    <p style={{ marginTop: "0", fontFamily: "Basic", fontSize: "18px", }}>task</p>
+                    <p style={{  marginTop: "1vh",marginBottom: "0", fontFamily: "Basic", fontSize: "14px", }}>Add to</p>
+                    <p style={{ marginTop: "0",marginBottom: "0",fontFamily: "Basic", fontSize: "18px", }}>TASK</p>
                 </button>
                 <div className={`shadow ${showPopup ? 'active' : ''}`} style={{ display: showPopup ? 'block' : 'none' }}></div>
                 {showPopup && (
                     <div className={`popup ${isExiting ? 'exiting' : ''}`}>
                         <div className="popup-content" style={{ width: "80vw", height: "28vh", backgroundColor: "white", border: "1px solid #E6E6E6" }}>
                             <div style={{ height: "2vh" }}></div>
-                            <div style={{ marginLeft: "4vw" }} className='row-content'>
-                                <p style={{ fontFamily: "Basic", fontSize: "16px" }} >title</p>
-                                <div style={{ width: "10vw" }}></div>
-                                <input type='text' value={title} onChange={saveTitle} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", borderBottom: "1px solid #E4E4E4" }} />
+                            <div className='row-content' style={{display:"flex", justifyContent:"space-between"}}>
+                                <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight:"200" }} >Title</p>
+                                <input className="edit-input2" type='text' value={title} onChange={saveTitle} style={{ fontFamily: "Basic", fontSize: "16px", fontWeight:"normal"}} />
                             </div>
-                            <div style={{ marginRight: "6vw" }} className='row-content'>
-                                <p style={{ fontFamily: "Basic", fontSize: "16px" }}>contents</p>
-                                <div style={{ width: "10vw" }}></div>
-                                <input type='text' value={content} onChange={saveContent} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", borderBottom: "1px solid #E4E4E4" }} />
+                            <div  className='row-content' style={{display:"flex", justifyContent:"space-between"}}>
+                                <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight:"300" }}>Contents</p>
+                                <input className="edit-input2" type='text' value={content} onChange={saveContent} style={{ fontFamily: "Basic", fontSize: "16px", fontWeight:"normal"}} />
                             </div>
-                            <div style={{ height: "8vh" }}></div>
+                            <div style={{ height: "9vh" }}></div>
                             <div className='row-content'>
-                                <button className="round-button" style={{ backgroundColor: "#FFFFFF", color: "black", fontSize: "12px" }} onClick={handleXButtonClick}>취소</button>
+                                <button className="cancel" style={{width:"32vw", height:"3.7vh"}}onClick={handleXButtonClick}>취소</button>
                                 <div style={{ width: "1.5vh" }}></div>
-                                <button className="round-button-orange" style={{ backgroundColor: "#FF7A00", color: "white", fontSize: "12px" }} onClick={() => { createTodo(); }}>완료</button>
+                                <button className="submit" style={{width:"32vw", height:"3.7vh"}}onClick={() => { createTodo(); }}>완료</button>
                             </div>
                         </div>
                     </div>
@@ -371,11 +389,16 @@ const Todolist = () => {
                 <div className={`shadow ${showDPopup ? 'active' : ''}`} style={{ display: showDPopup ? 'block' : 'none' }}></div>
                 {showDPopup && (
                     <div className={`popup ${isExiting2 ? 'exiting' : ''}`}>
-                        <div className="popup-content" style={{ width: "50vw", height: "3.5vh", backgroundColor: "white", border: "1px solid #E6E6E6", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <div className="popup-content" style={{ width: "80vw", height: "13vh", backgroundColor: "white", border: "1px solid #E6E6E6", display: "flex", alignItems: "center", justifyContent: "center", flexDirection:"column" }}>
                             <div className='row-content'>
-                                <p style={{ fontFamily: "Basic", fontSize: "16px", fontWeight: "bold" }} >{oneTodolist.title}</p>
+                                <p style={{ fontFamily: "Basic", fontSize: "13px", fontWeight: "normal" }} >{oneTodolist.title}</p>
                                 <div style={{ width: "2vw" }}></div>
-                                <button onClick={() => { deleteTodo(); }} style={{ fontFamily: "Basic", fontSize: "16px", border: "none", color: "red", backgroundColor: "transparent", fontWeight: "bold" }}>삭제</button>
+                                <p style={{ fontFamily: "Basic", fontSize: "13px", fontWeight: "normal" }} >삭제합니다.</p>
+                            </div>
+                            <div className='row-content' style={{marginTop:"2vh"}}>
+                                <button className="cancel" style={{width:"32vw", height:"3.7vh"}}onClick={handleXButtonClick}>취소</button>
+                                <div style={{ width: "1.5vh" }}></div>
+                                <button className="submit" style={{width:"32vw", height:"3.7vh"}}onClick={() => { deleteTodo(); }}>네</button>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import '../App.css';
 import './editProfile.css';
 import profImg from '../images/profile.png';
 import alarm from '../images/bell3.png';
+import picturePen from '../images/pencil.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
 const EditProfileScreen = () => {
   const navigate = useNavigate();
 
-  const handleSaveChanges = async() => {
+  const handleSaveChanges = async () => {
     await changeName();
     await navigate('/feed');
   };
@@ -93,10 +94,10 @@ const EditProfileScreen = () => {
     <div className="main">
       <div style={{ height: "7vh" }}></div>
       <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
-        <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-          <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '14px' }}>{month},</p>
-          <div style={{ width: "2vw" }}></div>
-          <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '14px' }}>{day}</p>
+      <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+          <p style={{ fontWeight: '500', display: 'flex', alignItems: 'center', fontSize: '14px' }}>{month},</p>
+          <div style={{ width: '2vw' }}></div>
+          <p style={{ color: '#FF9500', display: 'flex', alignItems: 'center', fontWeight: '500', fontSize: '14px' }}>{day}</p>
         </div>
         <button style={{ position: "absolute", right: "1px", border: "none", backgroundColor: "transparent", transition: "transform 0.2s ease-in-out", }}
           onClick={(e) => {
@@ -105,22 +106,30 @@ const EditProfileScreen = () => {
               e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
             }, 200);
           }}>
-          <img src={alarm} alt="" width='20vw' height='20vh'>
+          <img src={alarm} width='25vw' height='25vh'>
           </img>
         </button>
       </div>
       <div className="edit-profile-container">
-        <div className="profile-image-section">
+      <div style={{height:"5vh"}}></div>
+        <div className="profile-image-section" style={{width:"35vw", height:"35vw"}}>
           <img src={profImg} alt="Profile" className="edit-profile-image" />
-          <button className="change-profile-image-button">change profile image</button>
+          <button className="change-profile-image-button" style={{
+            position: 'absolute',
+            top: "29vh",
+            right: '33.8vw',
+            zIndex: '10',
+          }}>
+            <img src={picturePen} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "4.4vw", height: "4.3vw" }}></img>
+          </button>
         </div>
         <div className="edit-field">
           <p className="edit-label" >이름</p>
-          <input type="text" value={username} style={{ textAlign: "center", height: '2vh' }} className="edit-input" disabled />
+          <input type="text" value={username} style={{ textAlign: "center", height: '3.2vh' }} className="edit-input" disabled />
         </div>
         <div className="edit-field">
           <p className="edit-label" >새 이름</p>
-          <input type="text" placeholder="입력하세요." className="edit-input" onChange={saveName} style={{ textAlign: "center", height: '2vh' }} />
+          <input type="text" placeholder="입력하세요." className="edit-input" onChange={saveName} style={{ textAlign: "center", height: '3.2vh', fontSize: "14px", color:"black" }} />
         </div>
         <button className="save-button" onClick={handleSaveChanges}>변경 완료</button>
       </div>

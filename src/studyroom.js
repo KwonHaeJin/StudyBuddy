@@ -3,6 +3,8 @@ import './App.css';
 import pictureAlram from './images/bell3.png';
 import pictureProfile from './images/profile.png';
 import pictureProfile2 from './images/profile2.jpg';
+import pictureStar from './images/star.png';
+import pictureUser from './images/user.png';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BaseURL } from './App';
@@ -105,9 +107,9 @@ function studyroom() {
             <div style={{ height: '7vh' }}></div>
             <div style={{ display: 'flex', position: 'relative', alignItems: 'center', width: '100%' }}>
                 <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-                    <p style={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', fontSize: '14px' }}>{month},</p>
+                    <p style={{ fontWeight: '500', display: 'flex', alignItems: 'center', fontSize: '14px' }}>{month},</p>
                     <div style={{ width: '2vw' }}></div>
-                    <p style={{ color: '#FF7A00', display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '14px' }}>{day}</p>
+                    <p style={{ color: '#FF9500', display: 'flex', alignItems: 'center', fontWeight: '500', fontSize: '14px' }}>{day}</p>
                 </div>
                 <button
                     style={{
@@ -125,20 +127,25 @@ function studyroom() {
                         navigate('/notification');
                     }}
                 >
-                    <img src={pictureAlram} width="20vw" height="20vh" alt="알람 아이콘" />
+                    <img src={pictureAlram} width="25vw" height="25vh" />
                 </button>
             </div>
             <div style={{ width: '100%' }}>
-                <div style={{ height: '1.2vh' }}></div>
-                <p style={{ display: 'flex', alignItems: 'flex-start', fontFamily: 'Basic', fontWeight: 'bold', fontSize: '28px', marginBottom: '0', color: '#FF7A00' }}>
-                    Who is
-                </p>
-                <p style={{ fontFamily: 'Basic', fontWeight: 'bold', fontSize: '28px', color: '#FF7A00', margin: '0' }}>
-                    Studying
-                </p>
+                <div style={{ height: '4vh' }}></div>
+                <div className='row-content' style={{ display: "flex", justifyContent: "flex-start" }}>
+                    <p style={{ display: 'flex', alignItems: 'flex-start', fontWeight: "300w", fontFamily: 'Basic', fontSize: '20px', color: '#707070' }}>
+                        Who is
+                    </p>
+                    <p style={{ fontFamily: 'Basic', fontWeight: 'bold', fontSize: '24px', color: '#FF9500', marginLeft: "2.5vw" }}>
+                        Studying?
+                    </p>
+                </div>
 
                 {/* Favorite Users */}
-                <p style={{ fontFamily: 'Basic', fontSize: '22px', fontWeight: 'bold', marginBottom: '0.5vh', marginTop: '0.5vh' }}>favorite</p>
+                <div className='row-content' style={{ display: "flex", justifyContent: "flex-start" }}>
+                    <img src={pictureStar} style={{ width: "6vw", height: "6vw" }}></img>
+                    <p style={{ marginLeft: "1vw", fontFamily: 'Basic', fontSize: '22px', fontWeight: '500', marginBottom: '0.5vh', marginTop: '0.5vh' }}>Favorite</p>
+                </div>
                 <span style={{ display: 'block', width: '100%', height: '1px', backgroundColor: '#CECECE', margin: '5px auto 0 auto' }}></span>
                 <div className="scroll-box">
                     {followingList.map((user, index) => (
@@ -167,7 +174,7 @@ function studyroom() {
                                 <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: 'bold', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                                 <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
                             </div>
-                            <div style={{ right: '15vw', position: 'fixed' }}>
+                            <div style={{ right: '15vw' }}>
                                 <p
                                     style={{
                                         color: user.isStudy ? '#2EC316' : '#D0D7CF',
@@ -184,7 +191,10 @@ function studyroom() {
                 </div>
 
                 {/* Other Users */}
-                <p style={{ fontFamily: 'Basic', fontSize: '22px', fontWeight: 'bold', marginBottom: '1vh' }}>other user</p>
+                <div className='row-content' style={{ display: "flex", justifyContent: "flex-start" }}>
+                    <img src={pictureUser} style={{ width: "6vw", height: "6vw" }}></img>
+                    <p style={{ marginLeft: "1vw", fontFamily: 'Basic', fontSize: '22px', fontWeight: '500', marginBottom: '0.5vh', marginTop: '0.5vh' }}>Other User</p>
+                </div>                
                 <span style={{ display: 'block', width: '100%', height: '1px', backgroundColor: '#CECECE', margin: '5px auto 0 auto' }}></span>
                 {otherUsers.map((user, index) => (
                     <button
@@ -197,42 +207,43 @@ function studyroom() {
                             }
                         }}
                     >
-                        <div style={{ width: '1.3vh' }}></div>
+                        <div style={{ width: '1vh' }}></div>
                         <img
                             src={user.profile}
                             style={{
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '12px',
+                                width: '9vw',
+                                height: '9vw',
+                                borderRadius: '50%',
                                 marginRight: '2vh',
+                                border:'1px solid #707070'
                             }}
                             alt={`${user.username} 프로필`}
                         />
-                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
-                            <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: 'bold', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
-                            <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
+                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"37vw" }}>
+                            <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: '500', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
+                            <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px', fontWeight: '400' }}>{user.userId}</p>
                         </div>
-                        <div style={{ right: '15vw', position: 'fixed' }}>
                             <p
                                 style={{
                                     color: user.isStudy ? '#2EC316' : '#D0D7CF',
                                     fontFamily: 'Basic',
-                                    fontWeight: 'bold',
+                                    fontWeight: '400',
                                     fontSize: '15px',
+                                    
                                 }}
                             >
                                 {user.isStudy ? 'studying...' : 'studying...'}
                             </p>
-                        </div>
                     </button>
                 ))}
             </div>
 
             {/* Popup */}
+            <div className={`shadow ${showPopup ? 'active' : ''}`} style={{ display: showPopup ? 'block' : 'none' }}></div>
             {showPopup && selectedUser && (
                 <div className={`popup ${showPopup ? 'active' : ''}`}>
                     <div className="popup-content">
-                        <p style={{ marginBottom: '0' }}>study with me</p>
+                        <p style={{ marginBottom: '0', color: "#FF7A00" }}>[STUDY with ME]</p>
                         <p style={{ marginTop: '0' }}>를 신청하시겠습니까?</p>
                         <div className="row-content">
                             <button
@@ -245,7 +256,7 @@ function studyroom() {
                             <div style={{ width: '1.5vh' }}></div>
                             <button
                                 className="round-button-orange"
-                                style={{ backgroundColor: '#FF7A00', color: 'white', fontSize: '12px' }}
+                                style={{ backgroundColor: '#FF9500', color: 'white', fontSize: '12px' }}
                                 onClick={handleStudyRequest}
                             >
                                 네

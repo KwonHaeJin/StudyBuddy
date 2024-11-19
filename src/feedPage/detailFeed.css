@@ -8,36 +8,37 @@
   background-color: white;
   border-radius: 5vw;
   padding: 2vh;
-  height: 30vh;
+  height: 25vh;
   width: 80vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
 }
 
 .feedDate{
   display: flex;
   font-family: "Basic";
   flex-direction: row;
-  margin-right: 48vw;
-  margin-top: -1.8vh;
-  margin-bottom: 1.8vh;
 }
 
 .feedImage {
-  width: 68vw;
-  height: 19vh;
+  width: 100%;
+  height: 16vh;
   border-radius: 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5vh;
+  margin-bottom: 1vh;
 }
 
 .Image {
-  border-radius: 1.5vw;
+  width: 64vw;
+  border-radius: 3vw;
 }
 
 .like-container {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 2vw;
 }
