@@ -120,9 +120,9 @@ const ProfileScreen = () => {
 
   const renderFollowButton = (userId) => {
     return isFollowing(userId) ? (
-      <button  style={{ width: "12vw", height: "3vh", fontSize: "15px", fontFamily: "Basic", backgroundColor: "transparent", border: "none", color: "#FF7A00", marginRight: "6.4vw", fontWeight: "bold" }} onClick={() => handleUnfollow(userId)}>unfollow</button>
+      <button style={{ width: "12vw", height: "3vh", fontSize: "15px", fontFamily: "Basic", backgroundColor: "transparent", border: "none", color: "#FF7A00", marginRight: "6.4vw", fontWeight: "bold" }} onClick={() => handleUnfollow(userId)}>unfollow</button>
     ) : (
-      <button  style={{ width: "12vw", height: "3vh", fontSize: "15px", fontFamily: "Basic", backgroundColor: "transparent", border: "none", color: "#FF7A00", marginRight: "2vw", fontWeight: "bold" }} onClick={() => handleFollow(userId)}>follow</button>
+      <button style={{ width: "12vw", height: "3vh", fontSize: "15px", fontFamily: "Basic", backgroundColor: "transparent", border: "none", color: "#FF7A00", marginRight: "2vw", fontWeight: "bold" }} onClick={() => handleFollow(userId)}>follow</button>
     );
   };
 
@@ -178,7 +178,7 @@ const ProfileScreen = () => {
   function deleteFollow(userId) {
     axios.delete(
       `${BaseURL}/follow/${userId}`,
-     
+
       {
         'headers': {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -262,10 +262,10 @@ const ProfileScreen = () => {
     <div className="main">
       <div style={{ height: "7vh" }}></div>
       <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
-        <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-          <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '14px' }}>{month},</p>
-          <div style={{ width: "2vw" }}></div>
-          <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '14px' }}>{day}</p>
+        <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+          <p style={{ fontWeight: '500', display: 'flex', alignItems: 'center', fontSize: '14px' }}>{month},</p>
+          <div style={{ width: '2vw' }}></div>
+          <p style={{ color: '#FF9500', display: 'flex', alignItems: 'center', fontWeight: '500', fontSize: '14px' }}>{day}</p>
         </div>
         <button style={{ position: "absolute", right: "1px", border: "none", backgroundColor: "transparent", transition: "transform 0.2s ease-in-out", }}
           onClick={(e) => {
@@ -275,7 +275,7 @@ const ProfileScreen = () => {
             }, 200);
             navigate('/notification');
           }}>
-          <img src={pictureAlram} width='20vw' height='20vh'>
+          <img src={pictureAlram} width='25vw' height='25vh'>
           </img>
         </button>
       </div>
@@ -317,7 +317,7 @@ const ProfileScreen = () => {
                 <p style={{ marginLeft: "1vw" }}>
                   {userId !== userid ? userId : null}
                 </p>
-{renderFollowButton(userId)}
+                {renderFollowButton(userId)}
               </div>
             ))}
           </div>

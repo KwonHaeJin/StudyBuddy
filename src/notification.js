@@ -3,7 +3,9 @@ import './App.css';
 import pictureUturn from './images/uturn.png';
 import pictureProfile from './images/profile.png';
 import pictureProfile2 from './images/profile2.jpg';
+import pictureHeart from './images/heart.png';
 import { useState } from 'react';
+import pictureAlram from './images/bell3.png';
 import { useNavigate } from 'react-router-dom';
 
 function notification() {
@@ -30,27 +32,30 @@ function notification() {
                     <img src={pictureUturn} width='20vw' height='20vh'>
                     </img>
                 </button>
-                <div className='date-box' style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-                    <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '14px' }}>{month},</p>
-                    <div style={{ width: "2vw" }}></div>
-                    <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '14px' }}>{day}</p>
+                <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+                    <p style={{ fontWeight: '500', display: 'flex', alignItems: 'center', fontSize: '14px' }}>{month},</p>
+                    <div style={{ width: '2vw' }}></div>
+                    <p style={{ color: '#FF9500', display: 'flex', alignItems: 'center', fontWeight: '500', fontSize: '14px' }}>{day}</p>
                 </div>
             </div>
-            <div style={{ width: "100%" }}>
-                <div style={{ height: "1.2vh" }}></div>
-                <p style={{ display: "flex", alignItems: "flex-start", fontFamily: "Basic", fontWeight: "bold", fontSize: "28px", marginBottom: "0", color: "#FF7A00" }}>
+            <div style={{ height: "4vh" }}></div>
+
+            <div className="row-content" style={{ display: "flex", justifyContent: "flex-start", width: "100%", marginBottom: "0.2vh", marginTop: "1.5vh" }}>
+                <img src={pictureAlram} style={{ width: "6vw", height: "6vw" }}></img>
+                <p style={{ fontFamily: "Basic", fontWeight: "bold", fontSize: "20px", marginLeft: "3vw", color: "#707070" }}>
                     Notification
                 </p>
-                <div style={{ height: "2vh" }}></div>
-                {Sample.map((sample, index) => (
-                    <div key={index} className='notification-box' >
-                        <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight: "bold"}}>{sample.id}님이 좋아요를 누르셨습니다.</p>
-                    </div>
-                ))}
-
             </div>
+            {Sample.map((sample, index) => (
+                <div key={index} className='notification-box' >
+                    <img src={pictureHeart} style={{width:"6vw", height:"6vw", marginRight:"1vw"}}></img>
+                    <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight: "bold" }}>{sample.id}님이 좋아요를 누르셨습니다.</p>
+                </div>
+            ))}
 
         </div>
+
+
     );
 }
 

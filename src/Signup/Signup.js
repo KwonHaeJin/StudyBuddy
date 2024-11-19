@@ -9,6 +9,8 @@ import axios from 'axios';
 import { BaseURL } from '../App';
 import Swal from 'sweetalert2';
 import pictureProfile3 from '../images/profile3.png';
+import picturestudy from '../images/title_study.png';
+import picturebuddy from '../images/title_buddy.png';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -94,29 +96,27 @@ const Signup = () => {
 
   return (
     <div className="main">
-      <div style={{ height: "13vh" }}></div>
-      <p className="p1" style={{ marginBottom: "1vh" }}>Sign up for</p>
-      <div style={{ display: 'flex' }}>
-        <div id="dot1" style={{ margin: "0px 0 0 -3.8vh" }}></div><div id="dot2" style={{ margin: "0px 0 0 -3vh" }}></div>
-      </div>
-      <p className="p1" style={{ marginTop: "0" }}>study BUDDY</p>
-      <div style={{ height: "1vh" }}></div>
+      <div style={{ height: "11vh" }}></div>
+      <p style={{ color:"#8F8F8F", fontSize:"20px",marginBottom: "1vh", marginRight:"30vw", marginBottom:"1vh" }}>Sign up for</p>
+    <img src={picturestudy} style={{width:"25vw", height:"4vh", marginRight:"32vw", marginBottom:"0.5vh"}}></img>
+    <img src={picturebuddy} style={{width:"45vw", height:"4.5vh"}}></img>
+      <div style={{ height: "3vh" }}></div>
       <img src={pictureProfile3} style={{ width: "13vh", height: "13vh" }} alt="profile"></img>
       <div style={{ height: "3vh" }}></div>
-      <div className="row-content">
+      <div className="row-content" style={{marginBottom:-5}}>
         <p className='text-all'>아이디</p>
         <input className="edit-input2" type="text" value={id} onChange={saveUserId} />
       </div>
-      <div className="row-content">
+      <div className="row-content" style={{marginBottom:-5}}>
         <p className='text-all'>이름</p>
         <input className="edit-input2" type="text" value={name} onChange={saveUserName} />
       </div>
-      <div className="row-content">
+      <div className="row-content" style={{marginBottom:-5}}>
         <p className='text-all'>비밀번호</p>
         <input className="edit-input2" type="password" value={pw} onChange={saveUserPw} />
       </div>
       <div className="row-content">
-        <p className='text-all'>재확인</p>
+        <p className='text-all'>비밀번호 확인</p>
         <input className="edit-input2" type="password" value={repw} onChange={saveUserRepw} />
         {isPasswordMatch && (
           <p style={{ color: 'red', fontSize: '10px' }}>{isPasswordMatch}</p>
