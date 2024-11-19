@@ -58,19 +58,17 @@ function studyroom() {
     };
 
     // Study With Me 요청 처리
-    const handleStudyRequest = () => {
-        if (!selectedUser || !selectedUser.userId) {
-            console.error('유효하지 않은 사용자입니다.');
-            return;
-        }
+    const handleStudyRequest = (user) => {
         const message = JSON.stringify({
-            action: 'studyRequest',
-            userId: selectedUser.userId,
+            action: "studyRequest",
+            userId: user.userId, // 요청 대상 사용자 ID
         });
+    
+        // React Native WebView로 메시지 전송
         window.ReactNativeWebView?.postMessage(message);
         console.log('Study With Me 요청 전송:', message);
-        setShowPopup(false);
     };
+    
 
     useEffect(() => {
         // 데이터를 자동으로 갱신하기 위한 주기적 업데이트 설정
@@ -99,7 +97,7 @@ function studyroom() {
             );
         }
     }, [followingList, allUsers]);
-
+    
     return (
         <div className="main" style={{ marginBottom: '2vh' }}>
             <div style={{ height: '7vh' }}></div>
