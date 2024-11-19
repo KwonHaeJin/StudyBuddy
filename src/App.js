@@ -29,28 +29,43 @@ const Home = () => {
     console.log(event.target.value);
   };
 
+
+  // Study With Me 요청 처리
+  const sendingToken = () => {
+    const message = JSON.stringify({
+      token: localStorage.getItem("token")
+    });
+
+    // React Native WebView로 메시지 전송
+    window.ReactNativeWebView?.postMessage(message);
+    console.log('Study With Me 요청 전송:', message);
+  };
+
+
   function Login() {
     axios.post(
       `${BaseURL}/login`,
-      { "userId": id, "password": pw},
+      { "userId": id, "password": pw },
       {
-        'headers': { 
-          'Content-Type': 'application/json' }
+        'headers': {
+          'Content-Type': 'application/json'
+        }
       }
     ).then((response) => {
       if (response.status == 200) {
         localStorage.setItem("id", id);
         localStorage.setItem("token", response.data.token);
         console.log(localStorage.getItem("token"));
-       navigate('/studyroom');
-       console.log('로그인 성공');
+        sendingToken();
+        navigate('/studyroom');
+        console.log('로그인 성공');
       }
       else {
         console.log(error.response);
       }
     }).catch((error) => {
       console.log(error.response);
-     
+
     });
   }
 
@@ -73,15 +88,15 @@ const Home = () => {
             <div className="password-text">비밀번호</div>
           </div>
           <div >
-            <input className="input-a" type="text" id="username" value={id} onChange={saveUserId}  />
+            <input className="input-a" type="text" id="username" value={id} onChange={saveUserId} />
             <div style={{ height: "3vh" }}></div>
             <input className="input-a" type="password" id="password" value={pw} onChange={saveUserPw} />
           </div>
         </div>
-        </div>
-        <div style={{height:"5vh"}}></div>
-        <button className="login-button" style={{ color: 'black', display:"flex", justifyContent:"center", alignItems:"center" }} onClick={() => Login()}>login</button>
-      <button className="signup-button" onClick={()=> {navigate('/signup')}}>sign up</button>
+      </div>
+      <div style={{ height: "5vh" }}></div>
+      <button className="login-button" style={{ color: 'black', display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => Login()}>login</button>
+      <button className="signup-button" onClick={() => { navigate('/signup') }}>sign up</button>
     </div>
   );
 }
