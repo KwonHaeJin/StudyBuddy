@@ -4,64 +4,29 @@
   margin-bottom: 15px; /* 입력 그룹 사이의 간격 */
 }
 
-.container {
-  text-align: center;
-}
-
-.title {
-  font-family: Arial, sans-serif;
-  font-size: 36px;
-  color: #999; /* 기본 색상 회색 */
-  position: relative;
-  text-align: center;
-}
-
-.study {
+.texts {
   font-family: "Basic";
-  font-weight: lighter;
-  font-style: italic;
-  font-size: 50px;
-  color: #B3B3B3;
-}
-
-.buddy {
-  font-family: "Basic";
-  font-size: 62px;
-  font-style: italic;
-  font-weight: 400;
-  color: #FF7A00;
-}
-
-.id-text {
-  font-family: "Basic";
-  color: #000000;
-  text-align: center;
-  font-size: 15px;
-}
-
-.password-text {
-  font-family: "Basic";
-  color: #000000;
-  text-align: center;
-  font-size: 15px;
+  color: #8F8F8F;
+  text-align: right;
+  font-size: 14px;
 }
 
 #username,
 #password {
-  /*아이디 비밀번호 입력창 */
-  width: 45vw;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 2000px;
-  height: 10px;
-  margin: 0 0 0 20px;
+  width: 50vw;
+  border: 1px solid #E4E4E4;
+  border-radius: 3vh;
+  height: 3.5vh;
+  margin-left: 3vw;
+  display: flex;
+  align-items: center;
 }
 
 .login-button {
   width: 80%;
+  color: #FF9500;
   background-color: #ffffff;
-  border: 1px solid #FF7A00;
+  border: 1px solid #FF9500;
   border-radius: 30px;
   cursor: pointer;
   height: 4.3vh;
@@ -69,34 +34,12 @@
 }
 
 .signup-button {
-  width: 70%;
-  background-color: #FF7A00;
+  width: 80%;
+  background-color: #FF9500;
   border: none;
   border-radius: 30px;
   color: #ffffff;
   cursor: pointer;
   height: 4.3vh;
   font-size: 17px;
-  position: fixed;
-  bottom: 5vh;
-}
-
-#dot1,
-#dot2 {
-  height: 7px;
-  width: 7px;
-  border-radius: 50%;
-  background-color: #2EC316;
-}
-
-.buddyIn {
-  margin: 0 0 -10px 0;
-}
-
-#dot1 {
-  margin: 0px 0 0 97px;
-}
-
-#dot2 {
-  margin: 0px 0 0 31px;
 }
