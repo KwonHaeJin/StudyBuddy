@@ -169,11 +169,11 @@ function studyroom() {
                                 }}
                                 alt={"프로필"}
                             />
-                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"38vw" }}>
                                 <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: 'bold', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                                 <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
                             </div>
-                            <div style={{ right: '15vw' }}>
+                            <div>
                                 <p
                                     style={{
                                         color: user.isStudy ? '#2EC316' : '#D0D7CF',
@@ -218,7 +218,7 @@ function studyroom() {
                             }}
                             alt={`${user.username} 프로필`}
                         />
-                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"37vw" }}>
+                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"38vw" }}>
                             <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: '500', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                             <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px', fontWeight: '400' }}>{user.userId}</p>
                         </div>

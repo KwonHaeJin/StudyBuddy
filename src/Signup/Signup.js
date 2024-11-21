@@ -103,15 +103,15 @@ const Signup = () => {
       <div style={{ height: "3vh" }}></div>
       <img src={pictureProfile3} style={{ width: "13vh", height: "13vh" }} alt="profile"></img>
       <div style={{ height: "3vh" }}></div>
-      <div className="row-content" style={{marginBottom:-5}}>
+      <div className="row-content" style={{marginBottom:0}}>
         <p className='text-all'>아이디</p>
         <input className="edit-input2" type="text" value={id} onChange={saveUserId} />
       </div>
-      <div className="row-content" style={{marginBottom:-5}}>
+      <div className="row-content" style={{marginBottom:0}}>
         <p className='text-all'>이름</p>
         <input className="edit-input2" type="text" value={name} onChange={saveUserName} />
       </div>
-      <div className="row-content" style={{marginBottom:-5}}>
+      <div className="row-content" style={{marginBottom:0}}>
         <p className='text-all'>비밀번호</p>
         <input className="edit-input2" type="password" value={pw} onChange={saveUserPw} />
       </div>

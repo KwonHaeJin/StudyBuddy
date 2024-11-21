@@ -12,7 +12,10 @@ import DetailFeed from './feedPage/detailFeed';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import './Login/Login.css';
+import picturestudy from './images/title_study.png';
+import picturebuddy from './images/title_buddy.png';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -62,40 +65,43 @@ const Home = () => {
       }
       else {
         console.log(error.response);
+        Swal.fire({
+          icon: "warning",
+          text: "로그인 실패",
+        });
       }
     }).catch((error) => {
       console.log(error.response);
-
+      Swal.fire({
+        icon: "warning",
+        text: "로그인 실패",
+      });
     });
   }
 
 
   return (
     <div className="main" style={{ display: "flex", justifyContent: "center" }}>
-      <div className="study" style={{ marginRight: "30vw", marginBottom: "-6vh" }}>study</div>
-      <h1 className="buddy">
-        <div className="dots" style={{ display: 'flex' }}>
-          <div id="dot1"></div><div id="dot2"></div>
-        </div>
-        <div className="buddyIn"></div>
-        BUDDY
-      </h1>
+      <img src={picturestudy} style={{width:"20vw", height:"3vh", marginRight:"40vw", marginBottom:"1vh"}}></img>
+      <img src={picturebuddy} style={{width:"55vw", height:"5.5vh"}}></img>
+      <div style={{height:"13vh"}}></div>
       <div>
         <div className='row-content'>
-          <div style={{ width: "18vw" }}>
-            <div className="id-text">아이디</div>
+          <div style={{ width: "14vw" }}>
+            <div className="texts">아이디</div>
             <div style={{ height: "3vh" }}></div>
-            <div className="password-text">비밀번호</div>
+            <div className="texts">비밀번호</div>
           </div>
           <div >
-            <input className="input-a" type="text" id="username" value={id} onChange={saveUserId} />
-            <div style={{ height: "3vh" }}></div>
-            <input className="input-a" type="password" id="password" value={pw} onChange={saveUserPw} />
+            <input type="text" id="username" value={id} onChange={saveUserId} />
+            <div style={{ height: "1vh" }}></div>
+            <input type="password" id="password" value={pw} onChange={saveUserPw} />
           </div>
         </div>
       </div>
-      <div style={{ height: "5vh" }}></div>
-      <button className="login-button" style={{ color: 'black', display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => Login()}>login</button>
+      <div style={{ height: "10vh" }}></div>
+      <button className="login-button" style={{ display: "flex", justifyContent: "center", alignItems: "center" }} onClick={() => Login()}>login</button>
+      <span style={{ display: 'block', width: '100%', height: '0.5px', backgroundColor: '#D0D7CF', margin: '3vh' }}></span>
       <button className="signup-button" onClick={() => { navigate('/signup') }}>sign up</button>
     </div>
   );

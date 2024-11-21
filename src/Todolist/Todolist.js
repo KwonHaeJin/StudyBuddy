@@ -113,7 +113,7 @@ setDShowPopup(false);
             if (response.status === 200) {
                 Swal.fire({
                     icon: "success",
-                    text: "투두 체크 성공!",
+                    text: "todo 체크 변경 성공!",
                 });
                 getTodo(); // 전체 목록을 다시 불러오는 함수
                 console.log('체크박스 변경 성공');
