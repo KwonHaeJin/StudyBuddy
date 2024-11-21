@@ -60,7 +60,6 @@ const Home = () => {
         localStorage.setItem("token", response.data.token);
         console.log(localStorage.getItem("token"));
         sendingToken();
-        navigate('/studyroom');
         console.log('로그인 성공');
       }
       else {
@@ -129,4 +128,4 @@ const App = () => {
 }
 
 export default App;
-export const BaseURL = "http://43.202.203.36:3000/api";
+export const BaseURL = "http://43.203.252.52:3000/api";

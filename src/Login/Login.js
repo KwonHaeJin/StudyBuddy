@@ -24,7 +24,7 @@ const App = () => {
 
   function Login() {
     axios.post(
-      'http://43.202.203.36:3000/api/login',
+      'http://43.203.252.52:3000/api/login',
       { 
         "userId": id, 
         "password": pw
@@ -36,7 +36,8 @@ const App = () => {
       }
     ).then((response) => {
       if (response.status == 200) {
-       
+        console.log(id);
+        console.log(pw);
       }
       else {
         console.log(id);
