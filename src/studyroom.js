@@ -158,27 +158,28 @@ function studyroom() {
                                 }
                             }}
                         >
-                            <div style={{ width: '1.3vh' }}></div>
+                            <div style={{ width: '1vh' }}></div>
                             <img
                                 src={user.profile}
                                 style={{
-                                    width: '40px',
-                                    height: '40px',
-                                    borderRadius: '12px',
+                                    width: '9vw',
+                                    height: '9vw',
+                                    borderRadius: '50%',
                                     marginRight: '2vh',
+                                    border:'1px solid #707070'
                                 }}
                                 alt={"프로필"}
                             />
-                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"39vw" }}>
                                 <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: 'bold', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                                 <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
                             </div>
-                            <div style={{ right: '15vw' }}>
+                            <div>
                                 <p
                                     style={{
                                         color: user.isStudy ? '#2EC316' : '#D0D7CF',
                                         fontFamily: 'Basic',
-                                        fontWeight: 'bold',
+                                        fontWeight: '400',
                                         fontSize: '15px',
                                     }}
                                 >
@@ -218,7 +219,7 @@ function studyroom() {
                             }}
                             alt={`${user.username} 프로필`}
                         />
-                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"37vw" }}>
+                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"39vw" }}>
                             <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: '500', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                             <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px', fontWeight: '400' }}>{user.userId}</p>
                         </div>
