@@ -172,7 +172,7 @@ function studyroom() {
                             />
                             <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width: "39vw" }}>
 
-                                <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: 'bold', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
+                                <p style={{ margin: '-2px', fontFamily: 'Basic', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                                 <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
                             </div>
                             <div>
@@ -210,21 +210,21 @@ function studyroom() {
                     >
                         <div style={{ width: '1vh' }}></div>
                         <img
-                                src={user.profileImage ? user.profileImage : pictureProfile3} // 조건 추가
-                                style={{
-                                    width: '9vw',
-                                    height: '9vw',
-                                    borderRadius: '50%',
-                                    marginRight: '2vh',
-                                    border: '1px solid #707070',
-                                }}
-                                alt="프로필"
-                            />
+                            src={user.profileImage ? user.profileImage : pictureProfile3} // 조건 추가
+                            style={{
+                                width: '9vw',
+                                height: '9vw',
+                                borderRadius: '50%',
+                                marginRight: '2vh',
+                                border: '1px solid #707070',
+                            }}
+                            alt="프로필"
+                        />
 
                         <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width: "39vw" }}>
 
-                            <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: '500', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
-                            <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px', fontWeight: '400' }}>{user.userId}</p>
+                            <p style={{ margin: '-2px', fontFamily: 'Basic', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
+                            <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
                         </div>
                         <p
                             style={{

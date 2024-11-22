@@ -317,7 +317,7 @@ const ProfileScreen = () => {
             {searchResults.map((userId, index) => (
               <div className="row-content"
                 key={index}
-                style={{ height: "4.5vh", display: "flex", alignItems: "center", fontSize: "20px", fontFamily: "Basic", borderBottom: "1px solid #eee", justifyContent: "space-between", marginLeft: "2vw", marginRight: "2vw" }}>
+                style={{ height: "8.5vh", display: "flex", alignItems: "center", fontSize: "18px", fontFamily: "Basic", borderBottom: "1px solid #eee", justifyContent: "space-between", marginLeft: "2vw", marginRight: "2vw" }}>
                 <p style={{ marginLeft: "1vw" }}>
                   {userId !== userid ? userId : null}
                 </p>
