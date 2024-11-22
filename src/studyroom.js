@@ -2,7 +2,7 @@
 import './App.css';
 import pictureAlram from './images/bell3.png';
 import pictureProfile from './images/profile.png';
-import pictureProfile2 from './images/profile2.jpg';
+import pictureProfile3 from './images/profile3.png';
 import pictureStar from './images/star.png';
 import pictureUser from './images/user.png';
 import { useState, useEffect } from 'react';
@@ -66,12 +66,12 @@ function studyroom() {
             receivedRequestUserId: selectedUser.userId, // 스터디윗미 요청을 받는 유저 
             sendingRequestUserId: localStorage.getItem('id'),
         });
-    
+
         // React Native WebView로 메시지 전송
         window.ReactNativeWebView?.postMessage(message);
         console.log('Study With Me 요청 전송:', message);
     };
-    
+
 
     useEffect(() => {
         // 데이터를 자동으로 갱신하기 위한 주기적 업데이트 설정
@@ -100,7 +100,7 @@ function studyroom() {
             );
         }
     }, [followingList, allUsers]);
-    
+
     return (
         <div className="main" style={{ marginBottom: '2vh' }}>
             <div style={{ height: '7vh' }}></div>
@@ -160,16 +160,17 @@ function studyroom() {
                         >
                             <div style={{ width: '1vh' }}></div>
                             <img
-                                src={user.profile}
+                                src={user.profileImage ? user.profileImage : pictureProfile3} // 조건 추가
                                 style={{
                                     width: '9vw',
                                     height: '9vw',
                                     borderRadius: '50%',
                                     marginRight: '2vh',
-                                    border:'1px solid #707070'
+                                    border: '1px solid #707070',
                                 }}
-                                alt={"프로필"}
-                            />                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"39vw" }}>
+                                alt="프로필"
+                            />
+                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width: "39vw" }}>
 
                                 <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: 'bold', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                                 <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
@@ -194,7 +195,7 @@ function studyroom() {
                 <div className='row-content' style={{ display: "flex", justifyContent: "flex-start" }}>
                     <img src={pictureUser} style={{ width: "6vw", height: "6vw" }}></img>
                     <p style={{ marginLeft: "1vw", fontFamily: 'Basic', fontSize: '22px', fontWeight: '500', marginBottom: '0.5vh', marginTop: '0.5vh' }}>Other User</p>
-                </div>                
+                </div>
                 <span style={{ display: 'block', width: '100%', height: '1px', backgroundColor: '#CECECE', margin: '5px auto 0 auto' }}></span>
                 {otherUsers.map((user, index) => (
                     <button
@@ -209,33 +210,33 @@ function studyroom() {
                     >
                         <div style={{ width: '1vh' }}></div>
                         <img
-                            src={user.profile}
-                            style={{
-                                width: '9vw',
-                                height: '9vw',
-                                borderRadius: '50%',
-                                marginRight: '2vh',
-                                border:'1px solid #707070'
-                            }}
-                            alt={`${user.username} 프로필`}
-                        />
+                                src={user.profileImage ? user.profileImage : pictureProfile3} // 조건 추가
+                                style={{
+                                    width: '9vw',
+                                    height: '9vw',
+                                    borderRadius: '50%',
+                                    marginRight: '2vh',
+                                    border: '1px solid #707070',
+                                }}
+                                alt="프로필"
+                            />
 
-                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width:"39vw" }}>
+                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width: "39vw" }}>
 
                             <p style={{ margin: '-2px', fontFamily: 'Basic', fontWeight: '500', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                             <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px', fontWeight: '400' }}>{user.userId}</p>
                         </div>
-                            <p
-                                style={{
-                                    color: user.isStudy ? '#2EC316' : '#D0D7CF',
-                                    fontFamily: 'Basic',
-                                    fontWeight: '400',
-                                    fontSize: '15px',
-                                    
-                                }}
-                            >
-                                {user.isStudy ? 'studying...' : 'studying...'}
-                            </p>
+                        <p
+                            style={{
+                                color: user.isStudy ? '#2EC316' : '#D0D7CF',
+                                fontFamily: 'Basic',
+                                fontWeight: '400',
+                                fontSize: '15px',
+
+                            }}
+                        >
+                            {user.isStudy ? 'studying...' : 'studying...'}
+                        </p>
                     </button>
                 ))}
             </div>
