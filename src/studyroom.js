@@ -64,7 +64,7 @@ function studyroom() {
         const message = JSON.stringify({
             action: "studyRequest",
             receivedRequestUserId: selectedUser.userId, // 스터디윗미 요청을 받는 유저 
-            sendingRequestUserId: AsyncStorage.getItem('id'),
+            sendingRequestUserId: localStorage.getItem('id'),
         });
     
         // React Native WebView로 메시지 전송

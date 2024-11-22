@@ -24,7 +24,7 @@ const App = () => {
 
   function Login() {
     axios.post(
-      'http://43.203.252.52:3000/api/login',
+      'http://15.164.74.145:3000/api/login',
       { 
         "userId": id, 
         "password": pw

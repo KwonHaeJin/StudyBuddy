@@ -128,4 +128,4 @@ const App = () => {
 }
 
 export default App;
-export const BaseURL = "http://43.203.252.52:3000/api";
+export const BaseURL = "http://15.164.74.145:3000/api";
