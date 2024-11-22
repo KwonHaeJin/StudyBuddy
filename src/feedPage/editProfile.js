@@ -2,7 +2,7 @@
 import React from 'react';
 import '../App.css';
 import './editProfile.css';
-import profImg from '../images/profile.png';
+import profImg from '../images/profile3.png';
 import alarm from '../images/bell3.png';
 import picturePen from '../images/pencil.png';
 import { useNavigate } from 'react-router-dom';
