@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { useState, useEffect } from 'react';
-import { useLongPress } from 'use-long-press';
-import pictureAlram from '../images/bell3.png';
+import pictureAlram from '../images/bell.png';
 import iconImg from '../images/todoicon.png';
 import iconImg2 from '../images/todoicon2.png';
 import iconImg3 from '../images/todoicon3.png';
@@ -36,7 +35,6 @@ const Todolist = () => {
     const [showDPopup, setDShowPopup] = useState(false);
     const [isExiting, setIsExiting] = useState(false);
     const [isExiting2, setIsExiting2] = useState(false);
-    const [longPressTimeout, setLongPressTimeout] = useState(null);
     const [Todolist, setTodolist] = useState([]);
     const [oneTodolist, setoneTodolist] = useState(null);
 
@@ -46,7 +44,7 @@ const Todolist = () => {
 
     const handleXButtonClick = () => {
         setShowPopup(false);
-setDShowPopup(false);
+        setDShowPopup(false);
     };
 
     const handleDelteButton = () => {
@@ -68,7 +66,7 @@ setDShowPopup(false);
     };
 
     const colors = ["#B3E4C7", "#9BC6DB", "#F4C2C2", "#FACE92", "#EFEEEE"];
-    const icons = [iconImg, iconImg2, iconImg3, iconImg4, iconImg5, iconImg7,iconImg8, iconImg9, iconImg10, iconImg11, iconImg12];
+    const icons = [iconImg, iconImg2, iconImg3, iconImg4, iconImg5, iconImg7, iconImg8, iconImg9, iconImg10, iconImg11, iconImg12];
 
     const handleCheckboxChange = (id) => {
         checkTodo(id);
@@ -76,8 +74,8 @@ setDShowPopup(false);
 
     const handleEnterKey = (event) => {
         if (event.key === 'Enter') {
-            event.preventDefault(); // 엔터 키의 기본 동작을 방지 (폼 제출 등)
-            specificFunction(); // 엔터를 눌렀을 때 실행할 함수
+            event.preventDefault(); // 엔터 키의 기본 동작을 방지
+            specificFunction();
         }
     };
     const specificFunction = () => {
@@ -101,7 +99,7 @@ setDShowPopup(false);
                 {
                     "title": task.title,
                     "contents": task.contents,
-                    "isCheck": !task.isCheck  // 체크 상태를 반전
+                    "isCheck": !task.isCheck
                 },
                 {
                     headers: {
@@ -115,7 +113,7 @@ setDShowPopup(false);
                     icon: "success",
                     text: "todo 체크 변경 성공!",
                 });
-                getTodo(); // 전체 목록을 다시 불러오는 함수
+                getTodo();
                 console.log('체크박스 변경 성공');
             }
         } catch (error) {
@@ -129,7 +127,7 @@ setDShowPopup(false);
 
     const checkboxf = async (task) => {
         try {
-            await checkTodo(task);  // 바로 체크 상태 변경
+            await checkTodo(task);
         } catch (error) {
             console.error('투두 체크 실패', error);
         }
@@ -210,7 +208,7 @@ setDShowPopup(false);
                 }
             });
             if (response.status === 200) {
-                setoneTodolist(response.data); // 상태 업데이트
+                setoneTodolist(response.data);
                 console.log("특정 투두 가져오기 성공", response.data);
             }
         } catch (error) {
@@ -257,6 +255,20 @@ setDShowPopup(false);
         });
     };
 
+    const handleCreateTodo = () => {
+        if (!title.trim() || !content.trim()) {
+            Swal.fire({
+                icon: 'warning',
+                text: 'Title과 Contents를 모두 입력해주세요.',
+                confirmButtonText: '확인',
+            });
+            return;
+        }
+        createTodo();
+        setTitle('');
+        setContent('');
+    };
+
     const deleteTodo = async () => {
         try {
             const response = await axios.delete(
@@ -291,7 +303,7 @@ setDShowPopup(false);
 
 
     return (
-        <div className="main" style={{ marginBottom: "2vh" }}>
+        <div className="main">
             <div style={{ height: "7vh" }}></div>
             <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
                 <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
@@ -317,88 +329,96 @@ setDShowPopup(false);
                 <p style={{ marginLeft: "3vw", fontFamily: 'Basic', fontSize: '20px', fontWeight: '500', marginBottom: '0.5vh', marginTop: '0.5vh' }}>Weekly Notes</p>
             </div>
             <textarea className="note-box" type="text" value={note} onChange={saveNote} onKeyDown={handleEnterKey} />
-            <div className='row-content' style={{ display: "flex", justifyContent: "flex-start", width: "100%", marginBottom: "1.5vh", marginTop:"1.5vh" }}>
+            <div className='row-content' style={{ display: "flex", justifyContent: "flex-start", width: "100%", marginBottom: "1.5vh", marginTop: "1.5vh" }}>
                 <img src={pirctureClipbo} style={{ width: "6vw", height: "6vw" }}></img>
                 <p style={{ marginLeft: "3vw", fontFamily: 'Basic', fontSize: '20px', fontWeight: '500', marginBottom: '0.5vh', marginTop: '0.5vh' }}>Today, To Do List</p>
-            </div>            
+            </div>
+
+            {/*grid 형식으로 투두리스트 map*/}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1vh', width: "100%", alignItems: "flex-start" }}>
                 {Todolist.map((task, index) => (
-                    <div key={task.id} style={{ position: "relative", flexDirection: "column", border:  `2px solid ${colors[index % colors.length]}`, borderRadius: '3vh', padding: '1.5vh', height: "15vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "white", }}>
-                        <div className='row-content'style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                    <div key={task.id} style={{ position: "relative", flexDirection: "column", border: `2px solid ${colors[index % colors.length]}`, borderRadius: '3vh', padding: '1.5vh', height: "15vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "white", }}>
+                        <div className='row-content' style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
                             <img src={icons[index % icons.length]} style={{
                                 width: '5vh',
                                 height: '5vh',
-                                marginTop:"3vh"
+                                marginTop: "3vh"
                             }}></img>
                             <input
                                 className='check-box'
                                 type="checkbox"
                                 checked={task.isCheck}
                                 style={{
-                                    position: 'absolute', 
-                                    top: '0', 
-                                    right: '0', 
+                                    position: 'absolute',
+                                    top: '0',
+                                    right: '0',
                                     marginTop: '1vh',
-                                    marginRight:"0",
-                                    border:  `1px solid ${colors[index % colors.length]}`,
-                                }} 
+                                    marginRight: "0",
+                                    border: `1px solid ${colors[index % colors.length]}`,
+                                }}
                                 onChange={() => checkboxf(task)}
                             />
                         </div>
                         <div className='row-content'>
-                            <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
-                                <p style={{ marginTop: "2vh", marginBottom: "0", fontFamily: "Basic", fontSize: "17px", fontWeight: "700", color:`${colors[index % colors.length]}` }}>{task.title}</p>
-                                <p style={{ marginTop: "0", fontFamily: "Basic", fontSize: "12px",  color:`${colors[index % colors.length]}` }}>{task.contents}</p>
+                            <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+                                <p style={{ marginTop: "2vh", marginBottom: "0", fontFamily: "Basic", fontSize: "17px", fontWeight: "700", color: `${colors[index % colors.length]}` }}>{task.title}</p>
+                                <p style={{ marginTop: "0", fontFamily: "Basic", fontSize: "12px", color: `${colors[index % colors.length]}` }}>{task.contents}</p>
                             </div>
-                            <img onClick={() => bind(task)} style={{ width: "2vh", height: "2vh",  position: 'absolute', 
-                                    bottom: '1.5vh', 
-                                    right: '1vh' }} src={etc}></img>
+                            <img onClick={() => bind(task)} style={{
+                                width: "2vh", height: "2vh", position: 'absolute',
+                                bottom: '1.5vh',
+                                right: '1vh'
+                            }} src={etc}></img>
                         </div>
                     </div>
                 ))}
-                <button onClick={handleButtonClick} style={{ display: "flex", border:"none",borderRadius: '3vh', padding: '3vh', height: "18.4vh", alignItems: "center", justifyContent: "center", backgroundColor: "#AEAEAE", flexDirection: "column", color:"white" }}>
+                <button onClick={handleButtonClick} style={{ display: "flex", border: "none", borderRadius: '3vh', padding: '3vh', height: "18.4vh", alignItems: "center", justifyContent: "center", backgroundColor: "#AEAEAE", flexDirection: "column", color: "white" }}>
                     <img src={iconImg6} style={{
                         width: '2.4vh',
                         height: '2.4vh',
                     }}></img>
-                    <p style={{  marginTop: "1vh",marginBottom: "0", fontFamily: "Basic", fontSize: "14px", }}>Add to</p>
-                    <p style={{ marginTop: "0",marginBottom: "0",fontFamily: "Basic", fontSize: "18px", }}>TASK</p>
+                    <p style={{ marginTop: "1vh", marginBottom: "0", fontFamily: "Basic", fontSize: "14px", }}>Add to</p>
+                    <p style={{ marginTop: "0", marginBottom: "0", fontFamily: "Basic", fontSize: "18px", }}>TASK</p>
                 </button>
+
+                {/* todo 작성 팝업 */}
                 <div className={`shadow ${showPopup ? 'active' : ''}`} style={{ display: showPopup ? 'block' : 'none' }}></div>
                 {showPopup && (
                     <div className={`popup ${isExiting ? 'exiting' : ''}`}>
                         <div className="popup-content" style={{ width: "80vw", height: "28vh", backgroundColor: "white", border: "1px solid #E6E6E6" }}>
                             <div style={{ height: "2vh" }}></div>
-                            <div className='row-content' style={{display:"flex", justifyContent:"space-between"}}>
-                                <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight:"200" }} >Title</p>
-                                <input className="edit-input2" type='text' value={title} onChange={saveTitle} style={{ fontFamily: "Basic", fontSize: "16px", fontWeight:"normal"}} />
+                            <div className='row-content' style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight: "200" }} >Title</p>
+                                <input className="edit-input2" type='text' value={title} onChange={saveTitle} style={{ fontFamily: "Basic", fontSize: "16px", fontWeight: "normal" }} />
                             </div>
-                            <div  className='row-content' style={{display:"flex", justifyContent:"space-between"}}>
-                                <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight:"300" }}>Contents</p>
-                                <input className="edit-input2" type='text' value={content} onChange={saveContent} style={{ fontFamily: "Basic", fontSize: "16px", fontWeight:"normal"}} />
+                            <div className='row-content' style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight: "300" }}>Contents</p>
+                                <input className="edit-input2" type='text' value={content} onChange={saveContent} style={{ fontFamily: "Basic", fontSize: "16px", fontWeight: "normal" }} />
                             </div>
                             <div style={{ height: "9vh" }}></div>
                             <div className='row-content'>
-                                <button className="cancel" style={{width:"32vw", height:"3.7vh"}}onClick={handleXButtonClick}>취소</button>
+                                <button className="cancel" style={{ width: "32vw", height: "3.7vh" }} onClick={handleXButtonClick}>취소</button>
                                 <div style={{ width: "1.5vh" }}></div>
-                                <button className="submit" style={{width:"32vw", height:"3.7vh"}}onClick={() => { createTodo(); }}>완료</button>
+                                <button className="submit" style={{ width: "32vw", height: "3.7vh" }} onClick={handleCreateTodo}>완료</button>
                             </div>
                         </div>
                     </div>
                 )}
+
+                {/* todo 삭제 팝업 */}
                 <div className={`shadow ${showDPopup ? 'active' : ''}`} style={{ display: showDPopup ? 'block' : 'none' }}></div>
                 {showDPopup && (
                     <div className={`popup ${isExiting2 ? 'exiting' : ''}`}>
-                        <div className="popup-content" style={{ width: "80vw", height: "13vh", backgroundColor: "white", border: "1px solid #E6E6E6", display: "flex", alignItems: "center", justifyContent: "center", flexDirection:"column" }}>
+                        <div className="popup-content" style={{ width: "80vw", height: "13vh", backgroundColor: "white", border: "1px solid #E6E6E6", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
                             <div className='row-content'>
                                 <p style={{ fontFamily: "Basic", fontSize: "13px", fontWeight: "normal" }} >{oneTodolist.title}</p>
                                 <div style={{ width: "2vw" }}></div>
                                 <p style={{ fontFamily: "Basic", fontSize: "13px", fontWeight: "normal" }} >삭제합니다.</p>
                             </div>
-                            <div className='row-content' style={{marginTop:"2vh"}}>
-                                <button className="cancel" style={{width:"32vw", height:"3.7vh"}}onClick={handleXButtonClick}>취소</button>
+                            <div className='row-content' style={{ marginTop: "2vh" }}>
+                                <button className="cancel" style={{ width: "32vw", height: "3.7vh" }} onClick={handleXButtonClick}>취소</button>
                                 <div style={{ width: "1.5vh" }}></div>
-                                <button className="submit" style={{width:"32vw", height:"3.7vh"}}onClick={() => { deleteTodo(); }}>네</button>
+                                <button className="submit" style={{ width: "32vw", height: "3.7vh" }} onClick={() => { deleteTodo(); }}>네</button>
                             </div>
                         </div>
                     </div>

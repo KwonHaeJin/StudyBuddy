@@ -2,7 +2,7 @@
     border-radius: 20px;
     border: 2px solid #E4E4E4;
     font-family: 'Basic';
-    width: 83vw;
+    width: 75vw;
     height: 10vh;
     padding: 2.5vh;
     justify-content: center;
@@ -10,22 +10,19 @@
     font-size: 16px;
 }
 
-/* 체크박스 기본 스타일 제거 및 원형 만들기 */
 .check-box {
     width: 4vh;
     height: 4vh;
-    border-radius: 50%; /* 원형으로 만들기 */
+    border-radius: 50%; 
     border: 1.5px solid #AEAEAE;
-    appearance: none; /* 기본 체크박스 스타일 제거 */
+    appearance: none; 
     outline: none;
     position: relative;
     background-color: #FFFFFF;
 }
 
-/* 체크된 상태 */
 .check-box:checked {
     background-color: #F2F2F2;
-   
 }
 
 /* 체크된 상태에서 체크 표시 */
@@ -37,5 +34,5 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2.5vh;
-    color: black;
+    color: #4E90F3;
 }

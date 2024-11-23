@@ -1,7 +1,6 @@
 /* eslint-disable */
 import './App.css';
-import pictureAlram from './images/bell3.png';
-import pictureProfile from './images/profile.png';
+import pictureAlram from './images/bell.png';
 import pictureProfile3 from './images/profile3.png';
 import pictureStar from './images/star.png';
 import pictureUser from './images/user.png';
@@ -102,7 +101,7 @@ function studyroom() {
     }, [followingList, allUsers]);
 
     return (
-        <div className="main" style={{ marginBottom: '2vh' }}>
+        <div className="main">
             <div style={{ height: '7vh' }}></div>
             <div style={{ display: 'flex', position: 'relative', alignItems: 'center', width: '100%' }}>
                 <div className="date-box" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
@@ -170,23 +169,22 @@ function studyroom() {
                                 }}
                                 alt="프로필"
                             />
-                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width: "39vw" }}>
-
+                            <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
                                 <p style={{ margin: '-2px', fontFamily: 'Basic', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                                 <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
                             </div>
-                            <div>
                                 <p
                                     style={{
                                         color: user.isStudy ? '#2EC316' : '#D0D7CF',
                                         fontFamily: 'Basic',
                                         fontWeight: '400',
                                         fontSize: '15px',
+                                        position: 'absolute',
+                                        right: "10%",
                                     }}
                                 >
                                     {user.isStudy ? 'studying...' : 'studying...'}
                                 </p>
-                            </div>
                         </button>
                     ))}
                 </div>
@@ -220,9 +218,7 @@ function studyroom() {
                             }}
                             alt="프로필"
                         />
-
-                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column', width: "39vw" }}>
-
+                        <div style={{ display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
                             <p style={{ margin: '-2px', fontFamily: 'Basic', marginTop: '0.2vh', fontSize: '16px' }}>{user.username}</p>
                             <p style={{ margin: '0', fontFamily: 'Basic', fontSize: '12px' }}>{user.userId}</p>
                         </div>
@@ -232,9 +228,9 @@ function studyroom() {
                                 fontFamily: 'Basic',
                                 fontWeight: '400',
                                 fontSize: '15px',
-
-                            }}
-                        >
+                                position: 'absolute',
+                                right: "10%"
+                            }}>
                             {user.isStudy ? 'studying...' : 'studying...'}
                         </p>
                     </button>

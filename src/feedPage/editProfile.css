@@ -13,15 +13,14 @@
   display: flex;
   align-items: center;
   margin-bottom: 3vh;
+  position: relative;
 }
 
 .edit-profile-image {
   width: 35vw;
   height: 35vw;
   border-radius: 50%;
-  object-fit: cover;
-  border: 0px solid #CACACA;
-  
+  position: relative;
 }
 
 .change-profile-image-button {
@@ -31,6 +30,10 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
+  position:absolute;
+  bottom: 5%;
+  right: 5%;
+  z-index: 10;
 }
 
 .edit-field {

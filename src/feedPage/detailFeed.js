@@ -7,7 +7,7 @@ import feedImg from '../images/feedEx.jpeg';
 import feedImg2 from '../images/feedImg2.png';
 import searchIcon from '../images/search.png';
 import pictureUturn from '../images/uturn.png';
-import pictureAlram from '../images/bell3.png';
+import pictureAlram from '../images/bell.png';
 import { useNavigate } from 'react-router-dom';
 
 const ProfileScreen = () => {
@@ -20,6 +20,12 @@ const ProfileScreen = () => {
     { profile: feedImg2, month: "September", day: "22", like: "22" },
     { profile: feedImg2, month: "September", day: "10", like: "50" },
     { profile: feedImg, month: "September", day: "2", like: "1" },
+    { profile: feedImg, month: "September", day: "2", like: "1" },
+    { profile: feedImg, month: "September", day: "2", like: "1" },
+    { profile: feedImg, month: "September", day: "2", like: "1" },
+    { profile: feedImg, month: "September", day: "2", like: "1" },
+    { profile: feedImg, month: "September", day: "2", like: "1" },
+
   ];
   const toggleLike = (index) => {
     setLikes((prevLikes) => {
@@ -34,7 +40,7 @@ const ProfileScreen = () => {
   const month = today.toLocaleString('en-US', { month: 'long' });
 
   return (
-    <div className="main" style={{ marginBottom: "2vh" }}>
+    <div className="main">
       <div style={{ height: "7vh" }}></div>
       <div style={{ display: "flex", position: "relative", alignItems: "center", width: "100%" }}>
         <button style={{ position: "absolute", left: "1px", border: "none", backgroundColor: "transparent" }} onClick={() => { navigate(-1); }}>
@@ -70,14 +76,15 @@ const ProfileScreen = () => {
           backgroundPosition: 'right 2.5vh center',
         }}
       />
+      {/* feed 리스트 시작 */}
       <div style={{ height: "2.5vh" }}></div>
       <div className="feedContainer">
         {Sample.map((sample, index) => (
           <div key={index} className="feedItem">
             <div className='feedDate' style={{display:"flex", justifyContent:"flex-start"}}>
-              <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '19px', marginTop: "0", marginBottom: "0" }}>{sample.month},</p>
+              <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", fontSize: '16px', marginTop: "0", marginBottom: "0", marginLeft:"2vw" }}>{sample.month},</p>
               <div style={{ width: "1vw" }}></div>
-              <p style={{ color: "#FF7A00", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '19px', marginTop: "0", marginBottom: "0" }}>{sample.day}</p>
+              <p style={{ color: "#FF9500", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: '16px', marginTop: "0", marginBottom: "0" }}>{sample.day}</p>
             </div>
             <div className='feedImage'>
               <img className='Image'

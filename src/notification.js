@@ -1,11 +1,8 @@
 /* eslint-disable */
 import './App.css';
 import pictureUturn from './images/uturn.png';
-import pictureProfile from './images/profile.png';
-import pictureProfile2 from './images/profile2.jpg';
 import pictureHeart from './images/heart.png';
-import { useState } from 'react';
-import pictureAlram from './images/bell3.png';
+import pictureAlram from './images/bell.png';
 import { useNavigate } from 'react-router-dom';
 
 function notification() {
@@ -14,13 +11,14 @@ function notification() {
     const month = today.toLocaleString('en-US', { month: 'long' });
 
     const Sample = [
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-        { profile: pictureProfile2, name: '권해진', id: 'hjji', isStudying: false },
-        { profile: pictureProfile, name: '김수민', id: 'sumin', isStudying: false },
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-        { profile: pictureProfile, name: '이우림', id: 'dldnfla', isStudying: true },
-
+        {  id: 'dldnfla', },
+        {  id: 'dldnfla', },
+        {  id: 'dldnfla', },
+        {  id: 'dldnfla', },
+        {  id: 'dldnfla', },
+        {  id: 'dldnfla', },
+        {  id: 'dldnfla', },
+        {  id: 'dldnfla', },
     ];
 
     const navigate = useNavigate();
@@ -48,14 +46,11 @@ function notification() {
             </div>
             {Sample.map((sample, index) => (
                 <div key={index} className='notification-box' >
-                    <img src={pictureHeart} style={{width:"6vw", height:"6vw", marginRight:"1vw"}}></img>
+                    <img src={pictureHeart} style={{width:"6vw", height:"6vw", marginRight:"1.2vw", marginLeft:"4.5vw"}}></img>
                     <p style={{ fontFamily: "Basic", fontSize: "15px", fontWeight: "bold" }}>{sample.id}님이 좋아요를 누르셨습니다.</p>
                 </div>
             ))}
-
         </div>
-
-
     );
 }
 

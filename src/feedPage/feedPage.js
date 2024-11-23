@@ -4,9 +4,8 @@ import './feedPage.css';
 import React from 'react';
 import feedImg from '../images/feedEx.jpeg';
 import feedImg2 from '../images/feedImg2.png';
-import profImg from '../images/profile2.jpg';
 import searchIcon from '../images/search.png';
-import pictureAlram from '../images/bell3.png';
+import pictureAlram from '../images/bell.png';
 import profile3 from '../images/profile3.png';
 import { useNavigate } from 'react-router-dom';
 import { BaseURL } from '../App';
@@ -38,24 +37,17 @@ const ProfileScreen = () => {
   const [userid, setUserId] = useState("");
   const [profileImage, setProfileImg] = useState("");
   const [isStudy, setIsstudy] = useState(false);
-  const [token, setToken] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef(null);
   const [followingList, setFollowingList] = useState([]);
 
-
-  // console.log = (message) => {
-  //   window.ReactNativeWebView.postMessage(message);
-  // };
-
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Enter 키 이벤트 처리
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e) => { // 검색 기능 엔터 처리
     if (e.key === 'Enter') {
       getList();
     }
@@ -63,16 +55,13 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // searchRef가 참조하는 요소 외부를 클릭했는지 확인
       if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setShowResults(false); // 결과 창 닫기
+        setShowResults(false); // 화면 밖 누르면 결과 창 닫기
       }
     };
 
-    // 이벤트 리스너 추가
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
@@ -231,29 +220,15 @@ const ProfileScreen = () => {
         setIsstudy(response.data.isStudy);
         setProfileImg(response.data.profileImage);
         console.log("유저 정보 가져오기 성공", response.data);
-        //window.ReactNativeWebView.postMessage("유저 정보 가져오기 성공: " + JSON.stringify(response.data)); // 성공 메시지 전달
       }
     } catch (error) {
       if (error.response) {
         console.error("응답 오류:", error.response);
         console.log(`${localStorage.getItem('token')}`);
-        // window.ReactNativeWebView.postMessage(JSON.stringify({
-        //   type: 'USER_DATA',
-        //   status: 'failure',
-        //   error: `응답 오류: ${error.response.data}`
-        // }));
       } else {
         console.log(`${localStorage.getItem('token')}`);
-
         console.error("네트워크 오류:", error.message);
-
-        // window.ReactNativeWebView.postMessage(JSON.stringify({
-        //   type: 'USER_DATA',
-        //   status: 'failure',
-        //   error: `네트워크 오류: ${error.message}`
-        // }));
       }
-
     }
   };
 
@@ -283,6 +258,8 @@ const ProfileScreen = () => {
           </img>
         </button>
       </div>
+
+      {/* 검색창 */}
       <div style={{ position: 'relative' }} ref={searchRef}>
         <input
           type="text"

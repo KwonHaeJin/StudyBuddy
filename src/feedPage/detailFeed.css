@@ -1,7 +1,6 @@
 .feedContainer {
   display: flex;
   flex-direction: column;
-  gap: 2vh;
 }
 
 .feedItem {
@@ -12,7 +11,7 @@
   width: 80vw;
   display: flex;
   flex-direction: column;
-
+  margin-bottom: 2vh;
 }
 
 .feedDate{
@@ -29,7 +28,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 1.5vh;
-  margin-bottom: 1vh;
+  margin-bottom: 0;
 }
 
 .Image {
@@ -41,4 +40,5 @@
   display: flex;
   align-items: center;
   gap: 2vw;
+  margin-left: 2vw;
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import '../App.css';
 import './editProfile.css';
 import profImg from '../images/profile3.png';
-import alarm from '../images/bell3.png';
+import alarm from '../images/bell.png';
 import picturePen from '../images/pencil.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -184,6 +184,7 @@ const EditProfileScreen = () => {
             setTimeout(() => {
               e.target.style.transform = "scale(1)";  // 0.2초 후 원래 크기로 돌아옴
             }, 200);
+            navigate('/notification');
           }}>
           <img src={alarm} width='25vw' height='25vh'>
           </img>
@@ -208,12 +209,7 @@ const EditProfileScreen = () => {
               onChange={handleFileChange}
             />
           </div>
-          <button className="change-profile-image-button" style={{
-            position: 'absolute',
-            top: "29vh",
-            right: '33.8vw',
-            zIndex: '10',
-          }}>
+          <button className="change-profile-image-button" >
             <img src={picturePen} onClick={uploadProfileImg} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "4.4vw", height: "4.3vw" }}></img>
           </button>
         </div>
