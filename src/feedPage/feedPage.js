@@ -7,6 +7,7 @@ import feedImg2 from '../images/feedImg2.png';
 import profImg from '../images/profile2.jpg';
 import searchIcon from '../images/search.png';
 import pictureAlram from '../images/bell3.png';
+import profile3 from '../images/profile3.png';
 import { useNavigate } from 'react-router-dom';
 import { BaseURL } from '../App';
 import { useState, useEffect, useRef } from 'react';
@@ -35,6 +36,7 @@ const ProfileScreen = () => {
 
   const [username, setUsername] = useState("");
   const [userid, setUserId] = useState("");
+  const [profileImage, setProfileImg] = useState("");
   const [isStudy, setIsstudy] = useState(false);
   const [token, setToken] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -42,6 +44,7 @@ const ProfileScreen = () => {
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef(null);
   const [followingList, setFollowingList] = useState([]);
+
 
   // console.log = (message) => {
   //   window.ReactNativeWebView.postMessage(message);
@@ -226,6 +229,7 @@ const ProfileScreen = () => {
         setUsername(response.data.username);
         setUserId(response.data.userId)
         setIsstudy(response.data.isStudy);
+        setProfileImg(response.data.profileImage);
         console.log("유저 정보 가져오기 성공", response.data);
         //window.ReactNativeWebView.postMessage("유저 정보 가져오기 성공: " + JSON.stringify(response.data)); // 성공 메시지 전달
       }
@@ -313,7 +317,7 @@ const ProfileScreen = () => {
             {searchResults.map((userId, index) => (
               <div className="row-content"
                 key={index}
-                style={{ height: "4.5vh", display: "flex", alignItems: "center", fontSize: "20px", fontFamily: "Basic", borderBottom: "1px solid #eee", justifyContent: "space-between", marginLeft: "2vw", marginRight: "2vw" }}>
+                style={{ height: "8.5vh", display: "flex", alignItems: "center", fontSize: "18px", fontFamily: "Basic", borderBottom: "1px solid #eee", justifyContent: "space-between", marginLeft: "2vw", marginRight: "2vw" }}>
                 <p style={{ marginLeft: "1vw" }}>
                   {userId !== userid ? userId : null}
                 </p>
@@ -325,7 +329,7 @@ const ProfileScreen = () => {
       </div>
       <div className="profileContainer">
         <img
-          src={profImg}
+          src={profileImage ? profileImage : profile3} // 조건 추가
           alt="Profile"
           className="profileImage"
         />
