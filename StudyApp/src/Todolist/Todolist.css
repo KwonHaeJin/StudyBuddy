@@ -1,0 +1,38 @@
+.note-box {
+    border-radius: 20px;
+    border: 2px solid #E4E4E4;
+    font-family: 'Basic';
+    width: 75vw;
+    height: 10vh;
+    padding: 2.5vh;
+    justify-content: center;
+    align-items: center; 
+    font-size: 16px;
+}
+
+.check-box {
+    width: 4vh;
+    height: 4vh;
+    border-radius: 50%; 
+    border: 1.5px solid #AEAEAE;
+    appearance: none; 
+    outline: none;
+    position: relative;
+    background-color: #FFFFFF;
+}
+
+.check-box:checked {
+    background-color: #F2F2F2;
+}
+
+/* 체크된 상태에서 체크 표시 */
+.check-box:checked::after {
+    content: '✓'; /* 체크 표시 */
+    position: absolute;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5vh;
+    color: #4E90F3;
+}

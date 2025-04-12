@@ -1,0 +1,45 @@
+.input-group {
+  display: flex;
+  align-items: center; /* 레이블과 입력창을 수직 정렬 */
+  margin-bottom: 15px; /* 입력 그룹 사이의 간격 */
+}
+
+.texts {
+  font-family: "Basic";
+  color: #8F8F8F;
+  text-align: right;
+  font-size: 14px;
+}
+
+#username,
+#password {
+  width: 50vw;
+  border: 1px solid #E4E4E4;
+  border-radius: 3vh;
+  height: 3.5vh;
+  margin-left: 3vw;
+  display: flex;
+  align-items: center;
+}
+
+.login-button {
+  width: 80%;
+  color: #FF9500;
+  background-color: #ffffff;
+  border: 1px solid #FF9500;
+  border-radius: 30px;
+  cursor: pointer;
+  height: 4.3vh;
+  font-size: 17px;
+}
+
+.signup-button {
+  width: 80%;
+  background-color: #FF9500;
+  border: none;
+  border-radius: 30px;
+  color: #ffffff;
+  cursor: pointer;
+  height: 4.3vh;
+  font-size: 17px;
+}

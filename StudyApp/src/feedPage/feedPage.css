@@ -1,0 +1,80 @@
+.searchInput {
+  font-size: 15px;
+  margin-top: 5vh;
+  border-radius: 30px;
+  border: 1px solid #E4E4E4;
+  background-color: #FFFFFF;
+  height: 1.5vh;
+  color: #D1D1D1;
+  padding: 1.5vh 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileContainer {
+  width: 95%;
+  height: 20vh;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+  padding-left: 3vh;
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  flex-direction: row;
+}
+
+.profileImage {
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #CACACA;
+}
+
+.profileTextContainer {
+  flex: 1;
+}
+
+.profileName {
+  font-size: 20px;
+  font-family: "Basic";
+  margin-bottom: 0;
+}
+
+.profileUsername {
+  font-size: 15px;
+  font-family: "Basic";
+  color: black;
+  margin-top: 0;
+  margin-bottom: 0.5vw;
+}
+
+.editProfileButton {
+  margin-top: 1vw;
+  margin-left: -1vw;
+  background-color: #FF9500;
+  border: none;
+  border-radius: 15px;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 43vw;
+  height: 3vh;
+  font-size: 12px;
+  text-align: center;
+}
+
+.galleryContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1vh;
+  box-sizing: border-box;
+}
+
+.galleryImage {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}

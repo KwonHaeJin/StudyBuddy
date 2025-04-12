@@ -1,0 +1,95 @@
+.edit-profile-container {
+  width: 100%;
+  height: 75vh;
+  margin-top: 5vh;
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  flex-direction: column;
+  border-radius: 15px;
+}
+
+.profile-image-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3vh;
+  position: relative;
+}
+
+.edit-profile-image {
+  width: 35vw;
+  height: 35vw;
+  border-radius: 50%;
+  position: relative;
+}
+
+.change-profile-image-button {
+  width: 8vw;
+  height: 8vw;
+  background-color: #FF9500;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position:absolute;
+  bottom: 5%;
+  right: 5%;
+  z-index: 10;
+}
+
+.edit-field {
+  width: 95%;
+  height: 6vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 5vw;
+}
+
+.edit-label {
+  font-size: 14px;
+  color: #8E8E8E;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2vh;
+  width: 13vw;
+  font-family: "Basic";
+
+}
+
+.edit-input {
+  width: 43vw;
+  margin-right: 10vw;
+  border-radius: 1.5vh;
+  font-size: 15px;
+  text-align: center;
+  color: #8F8F8F;
+  font-family: "Basic";
+  background-color: #FFFFFF;
+  border: 1px solid #E6E6E6;
+}
+
+.save-button {
+  background-color: #FF9500;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 61vw;
+  height: 4.3vh;
+  text-align: center;
+  position: fixed;
+  bottom: 15vh;
+}
+
+.text-all {
+  width: 23vw;
+  font-family: "Basic";
+  font-size: 13px;
+  font-weight: 100w;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3vw;
+  color: #8E8E8E;
+}
